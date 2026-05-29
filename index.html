@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brian & Dana Dowdell — Holdings Dashboard</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --dark-navy: #141B45;
+    --ice-blue: #CADCFC;
+    --light-bg: #F5F7FB;
+    --accent-gold: #E8B94A;
+    --green: #2E8B57;
+    --red: #C0392B;
+    --teal: #1A8CAA;
+    --deep-blue: #2E4A8E;
+    --dark-text: #2C3E50;
+    --gray: #7F8C8D;
+    --med-gray: #B0B8C0;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    background: linear-gradient(135deg, var(--dark-navy), var(--navy));
+    color: var(--white);
+    padding: 24px 20px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .header h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .header .subtitle {
+    font-size: 12px;
+    color: var(--ice-blue);
+    opacity: 0.85;
+  }
+  .header .total-line {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .header .total-val {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent-gold);
+  }
+  .header .total-label {
+    font-size: 13px;
+    color: var(--ice-blue);
+    opacity: 0.7;
+  }
+
+  /* ─── Quick Stats Row ─── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 16px 20px;
+    background: var(--white);
+    border-bottom: 1px solid #e0e4eb;
+  }
+  .stat-card {
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 8px;
+    background: var(--light-bg);
+  }
+  .stat-card .stat-val {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    font-family: Georgia, serif;
+  }
+  .stat-card .stat-label {
+    font-size: 10px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* ─── Section containers ─── */
+  .section { padding: 16px 20px; }
+  .section-title {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .badge {
+    font-size: 10px;
+    font-family: 'Segoe UI', Calibri, sans-serif;
+    background: var(--ice-blue);
+    color: var(--navy);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  /* ─── Allocation Bar ─── */
+  .alloc-bar-container {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
+  }
+  .alloc-bar {
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .alloc-bar .seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--white);
+    font-weight: 600;
+    min-width: 2px;
+    transition: flex 0.3s;
+    cursor: pointer;
+  }
+  .alloc-bar .seg:hover { opacity: 0.85; }
+  .alloc-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    font-size: 11px;
+    color: var(--dark-text);
+  }
+  .alloc-legend .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .alloc-legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ─── IPS Target Comparison ─── */
+  .ips-compare {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    margin-bottom: 10px;
+  }
+  .ips-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f5;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .ips-row:last-child { border-bottom: none; }
+  .ips-row .ac-name {
+    width: 110px;
+    font-weight: 600;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: var(--navy);
+  }
+  .ips-row .bar-track {
+    flex: 1;
+    height: 18px;
+    background: #eef0f5;
+    border-radius: 4px;
+    position: relative;
+    overflow: visible;
+  }
+  .ips-row .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .ips-row .target-range {
+    position: absolute;
+    top: -2px;
+    height: 22px;
+    border: 2px dashed var(--accent-gold);
+    border-radius: 4px;
+    opacity: 0.7;
+  }
+  .ips-row .pct-label {
+    width: 44px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ips-row .target-label {
+    width: 70px;
+    text-align: right;
+    font-size: 10px;
+    color: var(--gray);
+    flex-shrink: 0;
+  }
+  .ips-row .nt-range {
+    position: absolute;
+    top: -3px;
+    height: 24px;
+    border: 1.5px solid rgba(78, 205, 196, 0.6);
+    border-radius: 4px;
+    background: rgba(78, 205, 196, 0.06);
+  }
+  .ips-row .nt-target-dot {
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ecdc4;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .ips-legend {
+    display: flex;
+    gap: 14px;
+    padding: 0 16px 8px;
+    font-size: 11px;
+    color: var(--gray);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .ips-legend .leg-bar {
+    display: inline-block;
+    width: 14px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .ips-legend .leg-dash {
+    display: inline-block;
+    width: 16px;
+    height: 0;
+    border-top: 2px dashed var(--accent-gold);
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .ips-legend .leg-solid {
+    display: inline-block;
+    width: 16px;
+    height: 0;
+    border-top: 1.5px solid rgba(78, 205, 196, 0.8);
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .ips-legend .leg-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .ips-row .nt-label {
+    width: 70px;
+    text-align: right;
+    font-size: 10px;
+    color: #4ecdc4;
+    flex-shrink: 0;
+  }
+
+  /* ─── Drilldown Cards ─── */
+  .ac-card {
+    background: var(--white);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .ac-card.expanded { box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  .ac-card-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+    transition: background 0.15s;
+  }
+  .ac-card-header:hover { background: #f8f9fc; }
+  .ac-card-header .ac-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ac-card-header .ac-info { flex: 1; }
+  .ac-card-header .ac-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .ac-card-header .ac-sub {
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .ac-card-header .ac-val {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: right;
+  }
+  .ac-card-header .ac-pct {
+    font-size: 11px;
+    color: var(--gray);
+    text-align: right;
+    min-width: 40px;
+  }
+  .ac-card-header .chevron {
+    font-size: 14px;
+    color: var(--med-gray);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .ac-card.expanded .chevron { transform: rotate(180deg); }
+
+  .ac-card-body {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid #f0f2f5;
+  }
+  .ac-card.expanded .ac-card-body { display: block; }
+
+  /* ─── Fund rows inside drilldown ─── */
+  .fund-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f6f8;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .fund-row:last-child { border-bottom: none; }
+  .fund-row:hover { background: #fafbfd; margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 4px; }
+  .fund-row .f-name { flex: 1; font-weight: 600; color: var(--dark-text); }
+  .fund-row .f-cat { width: 50px; color: var(--gray); font-size: 10px; text-transform: uppercase; }
+  .fund-row .f-val { width: 90px; text-align: right; font-weight: 600; color: var(--navy); font-family: Georgia, serif; }
+  .fund-row .f-moic { width: 50px; text-align: right; font-weight: 600; }
+  .fund-row .f-chev { width: 20px; text-align: right; color: var(--med-gray); font-size: 12px; }
+
+  /* ─── Fund detail panel ─── */
+  .fund-detail {
+    display: none;
+    background: #f8f9fc;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin: 4px 0 8px;
+    font-size: 11px;
+  }
+  .fund-detail.show { display: block; }
+  .fund-detail .fd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+  }
+  .fund-detail .fd-item { display: flex; justify-content: space-between; }
+  .fund-detail .fd-label { color: var(--gray); }
+  .fund-detail .fd-val { font-weight: 600; color: var(--dark-text); }
+
+  /* ─── Liquidity section ─── */
+  .liq-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .liq-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--navy);
+  }
+  .liq-card .liq-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .liq-card .liq-val {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .liq-card .liq-pct {
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .liq-card .liq-desc {
+    font-size: 10px;
+    color: var(--gray);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* ─── Performance section ─── */
+  .perf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .perf-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .perf-card .pv { font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: var(--navy); }
+  .perf-card .pl { font-size: 10px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+  .perf-card.highlight { background: linear-gradient(135deg, var(--dark-navy), var(--navy)); }
+  .perf-card.highlight .pv { color: var(--accent-gold); }
+  .perf-card.highlight .pl { color: var(--ice-blue); }
+
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 10px;
+    color: var(--gray);
+    border-top: 1px solid #e0e4eb;
+    margin-top: 10px;
+  }
+
+  /* ─── Responsive ─── */
+  @media (min-width: 768px) {
+    body { max-width: 600px; margin: 0 auto; }
+    .header h1 { font-size: 26px; }
+    .header .total-val { font-size: 38px; }
+  }
+  @media (max-width: 360px) {
+    .header h1 { font-size: 18px; }
+    .header .total-val { font-size: 26px; }
+    .stat-card .stat-val { font-size: 16px; }
+    .ips-row .ac-name { width: 80px; font-size: 11px; }
+  }
+
+  /* ─── MOIC coloring ─── */
+  .moic-pos { color: var(--green); }
+  .moic-neg { color: var(--red); }
+  .moic-flat { color: var(--gray); }
+
+  /* ─── Smooth animations ─── */
+  .ac-card-body { animation: slideDown 0.2s ease; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Change indicators ─── */
+  .chg-pos { color: var(--green); }
+  .chg-neg { color: var(--red); }
+  .chg-flat { color: var(--gray); }
+
+  /* ─── Portfolio Companies (3rd level) ─── */
+  .co-section {
+    margin-top: 8px;
+    border-top: 1px solid #eef0f5;
+    padding-top: 8px;
+  }
+  .co-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 0;
+    gap: 8px;
+  }
+  .co-header:hover { opacity: 0.8; }
+  .co-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .co-count {
+    font-size: 9px;
+    background: var(--ice-blue);
+    color: var(--navy);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .co-chev {
+    font-size: 10px;
+    color: var(--med-gray);
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+  .co-list { padding-top: 4px; }
+  .co-table-header {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #e0e4eb;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .co-th-name { flex: 1; }
+  .co-th-moic { width: 50px; text-align: right; }
+  .co-row {
+    cursor: pointer;
+    border-bottom: 1px solid #f5f6f8;
+  }
+  .co-row:last-child { border-bottom: none; }
+  .co-row-summary {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 12px;
+  }
+  .co-row-summary:hover { opacity: 0.7; }
+  .co-name {
+    flex: 1;
+    font-weight: 500;
+    color: var(--dark-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 6px;
+  }
+  .co-industry {
+    font-size: 9px;
+    color: var(--gray);
+    margin-top: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .co-moic {
+    width: 50px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .co-expand-icon {
+    font-size: 10px;
+    color: var(--med-gray);
+    margin-left: 6px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .co-detail {
+    display: none;
+    padding: 4px 0 8px 8px;
+    animation: slideDown 0.15s ease;
+  }
+  .co-detail.show { display: block; }
+  .co-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+  }
+  .co-detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    padding: 2px 0;
+  }
+  .co-detail-label {
+    color: var(--gray);
+    font-weight: 500;
+  }
+  .co-detail-val {
+    color: var(--dark-text);
+    font-weight: 600;
+    text-align: right;
+  }
+  .co-status {
+    font-size: 8px;
+    background: var(--med-gray);
+    color: white;
+    padding: 0 4px;
+    border-radius: 3px;
+    margin-left: 4px;
+    font-weight: 600;
+  }
+
+
+  /* ─── Manager Level ─── */
+  .mgr-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eef0f5;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .mgr-row:hover { background: #f8f9fc; }
+  .mgr-row:last-child { border-bottom: none; }
+  .mgr-name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--dark-text);
+  }
+  .mgr-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-right: 8px;
+  }
+  .mgr-count {
+    font-size: 9px;
+    background: var(--ice-blue);
+    color: var(--navy);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  .mgr-chev {
+    font-size: 12px;
+    color: var(--med-gray);
+    transition: transform 0.2s;
+  }
+  .mgr-detail {
+    display: none;
+    background: var(--white);
+    border-top: 1px solid #eef0f5;
+    padding: 0 8px;
+  }
+  .mgr-detail.show { display: block; animation: slideDown 0.2s ease; }
+
+  /* ─── Password Gate ─── */
+  .pw-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, var(--dark-navy), var(--navy));
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .pw-overlay.hidden { display: none; }
+  .pw-box {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 36px 32px;
+    width: 320px;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .pw-box h2 {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .pw-box .pw-sub {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+  .pw-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e4eb;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Calibri, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+  }
+  .pw-box input:focus { border-color: var(--navy); }
+  .pw-box input.pw-error { border-color: var(--red); animation: shake 0.3s; }
+  .pw-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Segoe UI', Calibri, sans-serif;
+    transition: background 0.2s;
+  }
+  .pw-box button:hover { background: var(--dark-navy); }
+  .pw-err-msg {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 8px;
+    min-height: 16px;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  .main-content.locked { display: none; }
+
+  /* ═══ SEARCH BAR ═══ */
+  .search-wrap {
+    position: relative;
+    margin: 0 16px 12px;
+  }
+  .search-wrap input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 40px 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus {
+    border-color: var(--accent-gold);
+  }
+  .search-wrap input::placeholder { color: #8893a7; }
+  .search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #8893a7;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    padding: 4px 8px;
+  }
+  .search-clear.show { display: block; }
+  .search-results {
+    margin: 0 16px 12px;
+    display: none;
+  }
+  .search-results.show { display: block; }
+  .search-results-label {
+    font-size: 12px;
+    color: #8893a7;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sr-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: border-color 0.15s;
+  }
+  .sr-item:hover, .sr-item:active {
+    border-color: var(--accent-gold);
+  }
+  .sr-name {
+    font-size: 14px;
+    color: var(--text);
+  }
+  .sr-name mark {
+    background: rgba(232, 185, 74, 0.3);
+    color: var(--text);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+  .sr-meta {
+    font-size: 11px;
+    color: #8893a7;
+    margin-top: 2px;
+  }
+  .sr-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--border);
+    color: #8893a7;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .sr-badge.fund { background: rgba(232, 185, 74, 0.15); color: var(--accent-gold); }
+  .sr-badge.company { background: rgba(78, 205, 196, 0.15); color: #4ecdc4; }
+  .sr-badge.manager { background: rgba(162, 136, 227, 0.15); color: #a288e3; }
+</style>
+<style>
+  .bva-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+  .bva-chip { background:var(--white); border-radius:10px; padding:10px 6px; text-align:center; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  .bva-chip .c-val { font-family:Georgia,serif; font-size:18px; font-weight:700; }
+  .bva-chip .c-lbl { font-size:9px; color:var(--gray); text-transform:uppercase; letter-spacing:.4px; margin-top:2px; }
+  .bva-card { background:var(--white); border-radius:10px; margin-bottom:10px; box-shadow:0 1px 4px rgba(0,0,0,.06); overflow:hidden; }
+  .bva-card.expanded { box-shadow:0 2px 12px rgba(0,0,0,.1); }
+  .bva-head { display:flex; align-items:center; padding:12px 16px; cursor:pointer; gap:10px; user-select:none; }
+  .bva-head:hover { background:#f8f9fc; }
+  .bva-bar-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .bva-head .b-info { flex:1; min-width:0; }
+  .bva-head .b-name { font-weight:700; font-size:14px; color:var(--navy); }
+  .bva-head .b-sub { font-size:11px; color:var(--gray); }
+  .bva-head .b-act { font-family:Georgia,serif; font-size:16px; font-weight:700; color:var(--navy); text-align:right; }
+  .bva-head .b-var { font-size:11px; text-align:right; font-weight:600; }
+  .bva-head .chevron { font-size:14px; color:var(--med-gray); transition:transform .2s; flex-shrink:0; }
+  .bva-card.expanded .chevron { transform:rotate(180deg); }
+  .bva-body { display:none; padding:2px 16px 14px; border-top:1px solid #f0f2f5; }
+  .bva-card.expanded .bva-body { display:block; animation:slideDown .2s ease; }
+  .bva-th, .cat-row { display:flex; align-items:center; font-size:12px; padding:7px 0; }
+  .bva-th { font-size:9px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:.3px; border-bottom:1px solid #e0e4eb; }
+  .cat-row { border-bottom:1px solid #f5f6f8; }
+  .cat-row:last-child { border-bottom:none; }
+  .cat-name { flex:1; color:var(--dark-text); font-weight:500; padding-right:6px; min-width:0; }
+  .cat-bud, .cat-act, .cat-var { width:62px; text-align:right; font-size:11px; font-variant-numeric:tabular-nums; flex-shrink:0; }
+  .cat-act { font-weight:600; color:var(--navy); }
+  .cat-var { font-weight:600; }
+  .bva-foot { background:var(--light-bg); border-radius:10px; padding:12px 16px; }
+  .bva-foot .ff-row { display:flex; justify-content:space-between; gap:10px; font-size:13px; padding:3px 0; }
+  .bva-foot .ff-row.net { border-top:1px solid #d8dde6; margin-top:4px; padding-top:8px; font-weight:700; color:var(--navy); }
+  .bva-foot .ff-row span:last-child { text-align:right; }
+  .var-good { color:var(--green); }
+  .var-bad { color:var(--red); }
+  .var-neutral { color:var(--gray); }
+</style>
+</head>
+<body>
+
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>Brian &amp; Dana Dowdell</h2>
+    <div class="pw-sub">Holdings Dashboard — Confidential</div>
+    <input type="password" id="pwInput" placeholder="Enter password" autocomplete="off" autofocus>
+    <button onclick="checkPw()">View Dashboard</button>
+    <div class="pw-err-msg" id="pwErr"></div>
+  </div>
+</div>
+
+<div id="mainContent" class="main-content locked">
+<div class="header">
+  <h1>Brian &amp; Dana Dowdell</h1>
+  <div class="subtitle">Holdings Dashboard &nbsp;|&nbsp; As of May 2026 (private funds Q1 2026)</div>
+  <div class="total-line">
+    <span class="total-val">$5.77M</span>
+    <span class="total-label">Total Financial Holdings &nbsp;·&nbsp; $7.77M net worth incl. home equity</span>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-val">26</div><div class="stat-label">Fund / Angel Positions</div></div>
+  <div class="stat-card"><div class="stat-val">83</div><div class="stat-label">Portfolio Companies</div></div>
+  <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">RE Properties</div></div>
+  <div class="stat-card"><div class="stat-val">64.2%</div><div class="stat-label">Illiquid</div></div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Search funds, managers, or companies..." autocomplete="off" />
+  <button class="search-clear" id="searchClear" onclick="clearSearch()">&times;</button>
+</div>
+<div class="search-results" id="searchResults"></div>
+
+<div class="section">
+  <div class="section-title">Portfolio Allocation</div>
+  <div class="alloc-bar-container">
+    <div class="alloc-bar" id="allocBar"></div>
+    <div class="alloc-legend" id="allocLegend"></div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <div class="section-title">Holdings by Asset Class <span class="badge">TAP TO DRILL DOWN</span></div>
+  <div id="acCards"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">Liquidity Tiers</div>
+  <div class="liq-tiers">
+    <div class="liq-card" style="border-top-color: var(--green);">
+      <div class="liq-title">Tier 1: Cash</div>
+      <div class="liq-val" style="color:var(--green)">$269K</div>
+      <div class="liq-pct">4.7% of holdings</div>
+      <div class="liq-desc">Cash &amp; money market across Northern Trust and Merrill. Capital-preservation reserve for capital calls and near-term needs.</div>
+    </div>
+    <div class="liq-card" style="border-top-color: var(--teal);">
+      <div class="liq-title">Tier 2: Public Equities + Liquid Credit</div>
+      <div class="liq-val" style="color:var(--teal)">$1.80M</div>
+      <div class="liq-pct">31.2% of holdings</div>
+      <div class="liq-desc">Common stocks, ETFs &amp; structured notes ($1.75M) plus redeemable credit interval funds — Ares SME + Ares Strategic Income ($51K).</div>
+    </div>
+    <div class="liq-card" style="border-top-color: var(--deep-blue);">
+      <div class="liq-title">Tier 3: Illiquid</div>
+      <div class="liq-val" style="color:var(--deep-blue)">$3.70M</div>
+      <div class="liq-pct">64.2% of holdings &nbsp;|&nbsp; 1–10+ years</div>
+      <div class="liq-desc">VC funds, angels, direct RE, and illiquid credit (Ares SDL II, Stonepeak). Distributions flow into the reserve tier.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Snapshot</div>
+  <div class="perf-grid">
+    <div class="perf-card highlight"><div class="pv">$5.77M</div><div class="pl">Total Holdings</div></div>
+    <div class="perf-card highlight"><div class="pv">$7.77M</div><div class="pl">Net Worth (incl. home)</div></div>
+    <div class="perf-card"><div class="pv">$3.70M</div><div class="pl">Illiquid (64.2%)</div></div>
+    <div class="perf-card"><div class="pv">$2.07M</div><div class="pl">Liquid (35.8%)</div></div>
+    <div class="perf-card"><div class="pv">$2.0M</div><div class="pl">Home Equity (Via Aguila)</div></div>
+    <div class="perf-card"><div class="pv">$806K</div><div class="pl">Largest: OV Opp Fund I</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Q1 2026 Budget vs Actual <span class="badge">TAP TO DRILL DOWN</span></div>
+  <div class="bva-summary" id="bvaSummary"></div>
+  <div id="bvaCards"></div>
+  <div class="bva-foot" id="bvaFoot"></div>
+</div>
+
+<div class="footer">
+  Brian &amp; Dana Dowdell &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; Holdings as of May 2026 (private funds Q1 2026)<br>
+  Public equities &amp; cash valued 5/29/26. Past performance is not indicative of future results. Values are unaudited estimates.
+</div>
+
+<script>
+const TOTAL_NAV = 5771749;
+const assetClasses = [{"name": "Venture Capital", "value": 2397402, "pct": 41.5, "color": "#1E2761", "managers": [{"name": "Okapi Ventures", "funds": [{"name": "OV Opp Fund I", "cat": "VC", "vintage": 2021, "moic": "1.9x", "commitment": 500000, "contribs": 487500, "distribs": 0, "nav": 805806, "ytdchg": -618, "unfunded": 12500}, {"name": "OV IV (Okapi)", "cat": "VC", "vintage": 2020, "moic": "1.0x", "commitment": 250000, "contribs": 228750, "distribs": 0, "nav": 196834, "ytdchg": 5003, "unfunded": 21250, "note": "As of Q1 2026 (capital account, Tax ID …2333)"}, {"name": "OV5 (Okapi)", "cat": "VC", "vintage": 2025, "moic": "~1.0x", "commitment": 100000, "contribs": 30000, "distribs": 0, "nav": 28100, "ytdchg": 9340, "unfunded": 70000}]}, {"name": "Ankona Capital", "funds": [{"name": "Ankona Capital I", "cat": "VC", "vintage": 2021, "moic": "1.85x", "commitment": 200000, "contribs": 200000, "distribs": 0, "nav": 305315, "ytdchg": 8946, "unfunded": 0, "note": "As of Q4 2025 (Brian Dowdell capital account)"}, {"name": "Ankona Capital II", "cat": "VC", "vintage": 2023, "moic": "1.39x", "commitment": 250000, "contribs": 162625, "distribs": 0, "nav": 194348, "ytdchg": 6571, "unfunded": 87375, "note": "As of Q4 2025 (Brian Dowdell capital account)"}]}, {"name": "Muse Capital", "funds": [{"name": "Muse Capital II", "cat": "VC", "vintage": 2022, "moic": "0.81x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 78809, "ytdchg": -9371, "unfunded": 0, "note": "As of Q4 2025 (Dana Dowdell capital account)"}]}, {"name": "Emmeline Ventures", "funds": [{"name": "Emmeline Ventures I", "cat": "VC", "vintage": 2022, "moic": "1.25x", "commitment": 100000, "contribs": 37500, "distribs": 0, "nav": 35767, "ytdchg": null, "unfunded": 62500, "note": "Q3 2025 data — no Q1 2026 statement"}]}, {"name": "Dangerous Ventures", "funds": [{"name": "Dangerous Ventures I", "cat": "VC", "vintage": 2022, "moic": "0.96x", "commitment": 50000, "contribs": 41250, "distribs": 0, "nav": 33989, "ytdchg": 878, "unfunded": 8750}]}, {"name": "Direct Angel", "funds": [{"name": "Project Prometheus", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 250000, "contribs": 250000, "distribs": 0, "nav": 250000, "ytdchg": null, "unfunded": 0, "note": "New angel position added Q1 2026"}, {"name": "TCA ACE Fund 20", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 21", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "myCOI", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 22", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "Iridia", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "TrackStreet (direct)", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 43434, "contribs": 43434, "distribs": 0, "nav": 43434, "unfunded": 0}, {"name": "CampusTree", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 25000, "contribs": 25000, "distribs": 0, "nav": 25000, "unfunded": 0}]}]}, {"name": "Public Equities", "value": 1748343, "pct": 30.3, "color": "#2E4A8E", "managers": [{"name": "Northern Trust", "funds": [{"name": "JPMorgan Structured Notes", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 739775, "desc": "Equity index-linked structured notes (2 tranches)"}, {"name": "Apple (AAPL)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 174068}, {"name": "Berkshire Hathaway (BRK.B)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 112194}, {"name": "Accenture (ACN)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 85810}]}, {"name": "Merrill Lynch", "funds": [{"name": "MLWUE Intl Basket Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 228400, "desc": "CIBC 257% participation, due 2/25/28"}, {"name": "MLZUM SX5E Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 193760, "desc": "CIBC 226% participation, due 3/29/30"}, {"name": "SPY (S&P 500 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 62025}, {"name": "TAN (Solar ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 29432}, {"name": "ICLN (Clean Energy ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 25690}, {"name": "CGW (Global Water ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 23833}, {"name": "IWM (Russell 2000 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 23245}, {"name": "VYM (High Div Yield ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 17489}, {"name": "QQQ (Nasdaq 100 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 16964}, {"name": "ARKQ (Autonomous Tech ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 15656}]}]}, {"name": "Real Estate", "value": 1077112, "pct": 18.7, "color": "#B8860B", "managers": [{"name": "RanchHarbor", "funds": [{"name": "RanchHarbor (Fund I + Directs)", "cat": "RE", "vintage": 2020, "moic": "1.28x", "commitment": 500000, "contribs": 543450, "distribs": 288734, "nav": 408132, "unfunded": 0}]}, {"name": "Three Pillar Communities", "funds": [{"name": "Three Pillar (Fund 2 + Directs)", "cat": "RE", "vintage": 2021, "moic": "1.08x", "commitment": 150000, "contribs": 150000, "distribs": 11480, "nav": 150000, "unfunded": 0}]}, {"name": "Laguna Point Properties", "funds": [{"name": "Laguna Point Properties", "cat": "RE", "vintage": 2022, "moic": "1.00x", "commitment": 202058, "contribs": 202058, "distribs": 0, "nav": 202058, "unfunded": 0}]}, {"name": "IEQ Capital", "funds": [{"name": "IEQ Bridge MF IV", "cat": "RE", "vintage": 2018, "moic": "1.55x", "commitment": 62500, "contribs": 64975, "distribs": 22931, "nav": 66922, "unfunded": 0, "note": "Prior data — no Q1 2026 statement"}]}, {"name": "Other Direct RE", "funds": [{"name": "Oasis Dominical", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 150000, "contribs": 150000, "distribs": 0, "nav": 150000, "unfunded": 0}, {"name": "LVWG", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}]}]}, {"name": "Credit", "value": 280324, "pct": 4.9, "color": "#1A8CAA", "managers": [{"name": "Ares", "funds": [{"name": "Ares Senior Direct Lending II", "cat": "CREDIT", "vintage": 2021, "moic": "1.28x", "commitment": 200000, "contribs": 158000, "distribs": 45219, "nav": 115526, "unfunded": 0, "note": "Marked to current Merrill value"}, {"name": "Ares SME O TE", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 26271, "desc": "Liquid credit (interval fund)"}, {"name": "Ares Strategic Income", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 24679, "desc": "Liquid credit (interval fund)"}]}, {"name": "Stonepeak", "funds": [{"name": "Stonepeak Global Renewables", "cat": "CREDIT", "vintage": 2021, "moic": "1.11x", "commitment": 200000, "contribs": 115000, "distribs": 22928, "nav": 113847, "unfunded": 85000, "note": "Marked to current Merrill value"}]}]}, {"name": "Cash", "value": 268568, "pct": 4.6, "color": "#7F8C8D", "managers": [{"name": "Merrill Lynch", "funds": [{"name": "ML Bank Deposit Program", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 133477}, {"name": "BLF FedFund (TFDXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 53740}, {"name": "BofA RASP (IIAXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 10625}]}, {"name": "Northern Trust", "funds": [{"name": "NOGXX Money Market", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 70726}]}]}];
+const COMPANIES = {"OV Opp Fund I": [{"n": "FigureAI", "i": "AI robotics (Series B/C SPV)", "m": "5.3x", "c": 2000000, "f": 10547000}, {"n": "SpecRight", "i": "Supply chain data, $21.6M ARR", "m": "1.8x", "c": 6900000, "f": 12400000}, {"n": "Trellis Research", "i": "Legal research, $14.4M ARR", "m": "1.4x", "c": 3250000, "f": 4597000}, {"n": "Slingshot Aerospace", "i": "Space/defense, $39M rev", "m": "1.4x", "c": 3000000, "f": 4294000}, {"n": "Daasity", "i": "E-commerce analytics", "m": "1.0x", "c": 2407000, "f": 2407000}, {"n": "ChargeZoom", "i": "Fintech, 100% YoY ARR", "m": "1.0x", "c": 1200000, "f": 1241000}, {"n": "TrackStreet", "i": "Brand protection, $10.5M ARR", "m": "1.5x", "c": 617000, "f": 894000}], "OV IV (Okapi)": [{"n": "Network Perception / Dragos", "i": "Cybersecurity (acquired by Dragos)", "m": "2.6x", "c": 2171000, "f": 5593000}, {"n": "Chargezoom", "i": "Fintech", "m": "1.5x", "c": 3177000, "f": 4752000}, {"n": "Occuspace", "i": "Space utilization, $3.3M ARR", "m": "1.4x", "c": 1900000, "f": 2628000}, {"n": "WeGive", "i": "Charitable giving platform", "m": "1.6x", "c": 1105000, "f": 1784000}, {"n": "Trnsact", "i": "Auto dealer finance", "m": "2.5x", "c": 700000, "f": 1730000}, {"n": "KredosAI", "i": "AI SaaS, $3.5M ARR", "m": "2.1x", "c": 794000, "f": 1640000}, {"n": "PlanStreet", "i": "Case management SaaS", "m": "1.6x", "c": 1000000, "f": 1558000}, {"n": "StockApp", "i": "Fintech", "m": "1.0x", "c": 1500000, "f": 1500000}, {"n": "LeadrPro", "i": "B2B software demos", "m": "1.5x", "c": 750000, "f": 1125000}, {"n": "GoodHood (fka FixMyCar)", "i": "Auto services", "m": "1.0x", "c": 800000, "f": 814000}, {"n": "MAYU Water", "i": "Consumer", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Paladin Cloud", "i": "Cloud security (writedown)", "m": "0.1x", "c": 2000000, "f": 200000}, {"n": "Fluid Power AI", "i": "Industrial AI (writedown)", "m": "0.2x", "c": 500000, "f": 100000}, {"n": "DepoDirect", "i": "Legal tech", "m": "-0.3x", "c": 440000, "r": 73000, "f": 74000}, {"n": "Multiplayer / DeepCast / NotiSphere / Violux", "i": "5 write-offs ($6.6M total)", "m": "0.0x", "c": 6590000, "f": 0}], "OV5 (Okapi)": [{"n": "Aline Technologies", "i": "Workplace mgmt, $1.6M ARR (4x since Jul)", "c": 250000, "f": 250000}, {"n": "MagicDoor", "i": "Property mgmt AI, 11,000 units", "m": "1.1x", "c": 700000, "f": 770000}, {"n": "IP Author", "i": "AI IP mgmt (Google, Qualcomm, Nokia)", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Clearspace Tech", "i": "Y-Combinator, >$1M ARR", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Forest-pkg", "i": "Packaging (pre-seed, added Q1)", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "FeltSense", "i": "Pre-launch AI", "m": "1.0x", "c": 250000, "f": 250000}], "Ankona Capital I": [{"n": "Soci Parent Co.", "i": "Marketing platform", "m": "2.83x", "c": 8700000, "f": 24600000}, {"n": "Canopy Tax", "i": "Tax automation software", "m": "2.78x", "c": 7000000, "f": 19500000}, {"n": "VideoAmp", "i": "Media measurement", "m": "2.08x", "c": 10700000, "f": 22200000}, {"n": "Lawmatics", "i": "Legal CRM", "m": "2.11x", "f": 12700000}, {"n": "Cordial Experience", "i": "Marketing automation", "m": "2.02x", "f": 16700000}, {"n": "Negotiatus Corp.", "i": "Procurement", "m": "1.14x", "f": 3400000}, {"n": "PropelPLM", "i": "PLM software", "m": "1.0x", "f": 7500000}, {"n": "GoSite", "i": "SMB software (written to zero)", "m": "0.00x", "c": 6500000, "f": 0}], "Ankona Capital II": [{"n": "Alleva Corp.", "i": "Healthcare SaaS", "m": "1.99x", "c": 6300000, "f": 12500000}, {"n": "Orca AI", "i": "AI maritime navigation", "m": "1.75x", "c": 4400000, "f": 7700000}, {"n": "Smartly / Bonusly", "i": "HR / employee recognition", "m": "1.59x", "c": 6300000, "f": 10000000}, {"n": "Canopy Tax", "i": "Tax automation (Series C)", "m": "1.43x"}, {"n": "VideoAmp", "i": "Media measurement (Series F)", "m": "1.24x"}, {"n": "Walla Software", "i": "Fitness SaaS", "m": "1.19x"}, {"n": "ABXR Labs", "i": "New position", "m": "1.0x"}], "Muse Capital II": [{"n": "Futureverse Corp.", "i": "Web3 and AI platform", "m": "2.14x", "c": 200000, "f": 428000}, {"n": "Conceivable Life Sci.", "i": "Fertility tech (IVF)", "m": "1.51x", "c": 542000, "f": 821000}, {"n": "Eli Health", "i": "Instant hormone testing", "m": "1.12x", "c": 1600000, "f": 1800000}, {"n": "Mavida Health", "i": "Perinatal mental health", "m": "1.0x"}, {"n": "Ohai.ai", "i": "Family management SaaS", "m": "1.0x"}, {"n": "Handled Legal", "i": "Legal AI", "m": "1.0x"}, {"n": "Starry Night Labs", "i": "Consumer (w/ warrants)", "m": "1.0x"}, {"n": "Reel Products", "i": "Eco-friendly CPG", "m": "0.80x", "c": 750000, "f": 600000}, {"n": "Kinside", "i": "Childcare (acq. by UrbanSitter)", "m": "0.44x", "c": 1000000, "f": 440000}], "Emmeline Ventures I": [{"n": "Alloy Health", "i": "Women's health (Series A-2)", "m": "4.90x", "c": 150000, "f": 736000}, {"n": "Well Found", "i": "Health (Series A)", "m": "1.44x", "c": 200000, "f": 288000}, {"n": "e-Lōvu Health", "i": "Women's health tech", "m": "1.16x", "c": 500000, "f": 579000}, {"n": "SocialMama", "i": "$300K SAFE", "m": "1.0x"}, {"n": "Wealth More", "i": "$250K SAFE", "m": "1.0x"}, {"n": "The Beans", "i": "Fintech (4 SAFEs)", "m": "1.0x"}, {"n": "Sugarfina", "i": "Consumer (Series B pref)", "m": "1.0x"}, {"n": "Clutch Wallet", "i": "$30K SAFE (written to zero)", "m": "0.00x"}, {"n": "Deux Foods", "i": "$100K SAFE (written to zero)", "m": "0.00x"}, {"n": "She Matters", "i": "$50K SAFE (written to zero)", "m": "0.00x"}], "Dangerous Ventures I": [{"n": "Overview Energy", "i": "Energy storage tech", "m": "1.97x", "c": 25000, "f": 49000}, {"n": "Safire Technology", "i": "Clean energy tech", "m": "1.43x", "c": 50000, "f": 71000}, {"n": "Enduring Planet", "i": "Climate finance platform", "m": "1.32x", "c": 100000, "f": 132000}, {"n": "Epistemix", "i": "Simulation / modeling", "m": "1.25x", "f": 63000}, {"n": "Skyward Wildfire", "i": "Wildfire prevention", "m": "1.02x"}, {"n": "Treau", "i": "HVAC / heat pump", "m": "1.0x"}, {"n": "Harvest Thermal", "i": "Heat pump", "m": "1.0x"}, {"n": "Senate Inc", "i": "Series A-2", "m": "0.29x", "c": 110000, "f": 32000}, {"n": "Qu POS / Powerx", "i": "Convertible note (writedown)", "m": "0.17x", "c": 100000, "f": 17000}], "RanchHarbor (Fund I + Directs)": [{"n": "Fund I", "i": "San Dimas Industrial (LA) + Duval at Midtown (Austin)", "m": "1.50x proj"}, {"n": "The Coronado", "i": "44-unit MF, Phoenix AZ — 95.5% occ, capital returned via refi", "m": "2.2x proj"}, {"n": "Signal Hill Industrial", "i": "18,998 SF, Signal Hill CA — re-leasing", "m": "At cost"}, {"n": "Curtis Junction", "i": "112-unit apts, Boise ID — 91% occ, DSCR 0.88x", "m": "Neg CF"}, {"n": "Albuquerque", "i": "Sold — $449K returned on $168K basis", "m": "Realized"}], "Three Pillar (Fund 2 + Directs)": [{"n": "Sandell MHP", "i": "Fund 2 — Corsicana TX, 90 units, NOI +41% vs budget", "m": "13.1% yld"}, {"n": "Summerville Hayes", "i": "Direct — SC, 130/133 occ, rent raised to $779", "m": "At cost"}, {"n": "Project Rebar-OZ", "i": "Direct — Livermore CA, 10 tenants, $70.5K/mo", "m": "At cost"}, {"n": "Dotsero MHP", "i": "Fund 2 — in contract to sell $13.65M (cost $5.8M)", "m": "For sale"}], "Laguna Point Properties": [{"n": "Coastal Bay (FL)", "i": "Jacksonville, 350 units — 93.7% occ", "m": "N/A"}, {"n": "Grove at Millenia (FL)", "i": "Orlando, 148 units — 95.0% occ", "m": "N/A"}, {"n": "Harmon at 370 (NV)", "i": "Las Vegas, 996 units — 78.2% occ (under contract)", "m": "N/A"}]};
+const BUDGET = {
+ components:[
+  {key:"income", name:"Income", budget:85750, actual:366506, dir:"income", color:"#2E8B57",
+   sub:"Budget $85.8K · Actual $366.5K", cats:[
+    {n:"Other Income (distributions, note maturity)", b:31250, a:321506},
+    {n:"RGD Income", b:45000, a:45000},
+    {n:"Gifts", b:9500, a:0} ]},
+  {key:"spend", name:"Spend", budget:66750, actual:77322, dir:"spend", color:"#C0392B",
+   sub:"Budget $66.8K · Actual $77.3K", cats:[
+    {n:"Housing", b:30000, a:31955},
+    {n:"Apple Card", b:2500, a:14868},
+    {n:"Household", b:3750, a:10495},
+    {n:"Restaurants", b:3000, a:3694},
+    {n:"Groceries", b:3750, a:3448},
+    {n:"Health", b:5000, a:3359},
+    {n:"Work Expense", b:5000, a:3300},
+    {n:"Miscellaneous", b:500, a:1746},
+    {n:"Transportation", b:1250, a:1555},
+    {n:"Entertainment", b:1250, a:1570},
+    {n:"Travel", b:2500, a:1332},
+    {n:"Moving", b:5000, a:0},
+    {n:"New Baby", b:2500, a:0},
+    {n:"Child Care", b:750, a:0} ]},
+  {key:"invest", name:"Investment Outflows", budget:68125, actual:279905, dir:"invest", color:"#1A8CAA",
+   sub:"Budget $68.1K · Actual $279.9K", noCatBudget:true, cats:[
+    {n:"2016 Via Aguila (mortgage paydown)", a:230000},
+    {n:"Real Estate (capital calls, net)", a:29905},
+    {n:"Asset Transfer", a:10000},
+    {n:"Venture Capital (Ankona II)", a:10000} ]},
+ ],
+ totalOutflows:{b:134875, a:357227},
+ netCashFlow:{b:-49125, a:9279},
+};
+
+function fmtCo(v){if(v==null)return '\u2014';if(Math.abs(v)>=1e9)return '$'+(v/1e9).toFixed(1)+'B';if(Math.abs(v)>=1e6)return '$'+(v/1e6).toFixed(1)+'M';if(Math.abs(v)>=1e3)return '$'+(v/1e3).toFixed(0)+'K';return '$'+v.toLocaleString();}
+function fmtDollar(v){if(v==null)return '\u2014';if(Math.abs(v)>=1e6)return '$'+(v/1e6).toFixed(2)+'M';if(Math.abs(v)>=1e3)return '$'+(v/1e3).toFixed(0)+'K';return '$'+Math.round(v).toLocaleString();}
+function fmtChg(v){if(v==null)return '\u2014';const s=v>=0?'+':'-';return s+fmtCo(Math.abs(v));}
+function moicClass(m){if(!m||m==='N/A')return 'moic-flat';const n=parseFloat(m);if(isNaN(n))return 'moic-flat';if(n>=1.5)return 'moic-pos';if(n<1.0)return 'moic-neg';return 'moic-flat';}
+
+function renderAllocBar(){
+  const bar=document.getElementById('allocBar');const legend=document.getElementById('allocLegend');
+  bar.innerHTML='';legend.innerHTML='';
+  assetClasses.forEach(ac=>{
+    const seg=document.createElement('div');seg.className='seg';seg.style.flex=ac.pct;seg.style.background=ac.color;
+    if(ac.pct>8)seg.textContent=ac.pct+'%';seg.title=ac.name+': '+ac.pct+'%';bar.appendChild(seg);
+    const item=document.createElement('div');item.className='leg-item';
+    item.innerHTML='<span class="dot" style="background:'+ac.color+'"></span>'+ac.name+' '+ac.pct+'%';legend.appendChild(item);
+  });
+}
+
+function renderCards(){
+  const container=document.getElementById('acCards');container.innerHTML='';
+  assetClasses.forEach((ac,idx)=>{
+    const card=document.createElement('div');card.className='ac-card';card.id='ac-'+idx;
+    const totalFunds=ac.managers.reduce((s,m)=>s+m.funds.length,0);
+    let managersHTML='';
+    ac.managers.forEach((mgr,mi)=>{
+      const mgrNav=mgr.funds.reduce((s,f)=>s+(f.nav||0),0);
+      const fundCount=mgr.funds.length;
+      const sortedFunds=[...mgr.funds].sort((a,b)=>(b.nav||0)-(a.nav||0));
+      let fundsHTML='';
+      sortedFunds.forEach((f,fi)=>{
+        const cos=COMPANIES[f.name]||[];
+        let coHTML='';
+        if(cos.length>0){
+          coHTML='<div class="co-section"><div class="co-header" onclick="toggleCoList('+idx+','+mi+','+fi+',event)">'+
+            '<span class="co-title">Portfolio Companies</span><span class="co-count">'+cos.length+'</span>'+
+            '<span class="co-chev" id="co-chev-'+idx+'-'+mi+'-'+fi+'">\u25BC</span></div>'+
+            '<div class="co-list" id="co-'+idx+'-'+mi+'-'+fi+'" style="display:none">'+
+            '<div class="co-table-header"><span class="co-th-name">Company</span><span class="co-th-moic">MOIC</span></div>'+
+            cos.slice().sort((a,b)=>(b.f||0)-(a.f||0)).map((c,ci)=>
+              '<div class="co-row"><div class="co-row-summary" onclick="toggleCo(event,\''+idx+'-'+mi+'-'+fi+'-'+ci+'\')">'+
+              '<div style="flex:1;min-width:0"><div class="co-name">'+c.n+'</div>'+(c.i?'<div class="co-industry">'+c.i+'</div>':'')+'</div>'+
+              '<span class="co-moic '+moicClass(c.m)+'">'+(c.m||'\u2014')+'</span>'+
+              '<span class="co-expand-icon" id="co-exp-'+idx+'-'+mi+'-'+fi+'-'+ci+'">\u203A</span></div>'+
+              '<div class="co-detail" id="co-det-'+idx+'-'+mi+'-'+fi+'-'+ci+'"><div class="co-detail-grid">'+
+              '<div class="co-detail-item"><span class="co-detail-label">Cost</span><span class="co-detail-val">'+fmtCo(c.c)+'</span></div>'+
+              '<div class="co-detail-item"><span class="co-detail-label">Realized</span><span class="co-detail-val">'+fmtCo(c.r)+'</span></div>'+
+              '<div class="co-detail-item"><span class="co-detail-label">FMV</span><span class="co-detail-val">'+fmtCo(c.f)+'</span></div>'+
+              '<div class="co-detail-item"><span class="co-detail-label">MOIC</span><span class="co-detail-val '+moicClass(c.m)+'">'+(c.m||'\u2014')+'</span></div>'+
+              (c.i?'<div class="co-detail-item" style="grid-column:1/3"><span class="co-detail-label">Detail</span><span class="co-detail-val" style="text-align:right">'+c.i+'</span></div>':'')+
+              '</div></div></div>'
+            ).join('')+'</div></div>';
+        }
+        const descHTML = f.desc?'<div class="fd-item" style="grid-column:1/3"><span class="fd-label">Note</span><span class="fd-val" style="text-align:right">'+f.desc+'</span></div>':'';
+        const noteHTML = f.note?'<div class="fd-item" style="grid-column:1/3"><span class="fd-label" style="color:var(--accent-gold)">\u26A0 '+f.note+'</span></div>':'';
+        fundsHTML+='<div class="fund-row" onclick="toggleFund('+idx+','+mi+','+fi+',event)">'+
+          '<span class="f-name">'+f.name+'</span><span class="f-cat">'+f.cat+'</span>'+
+          '<span class="f-val">'+fmtDollar(f.nav)+'</span>'+
+          '<span class="f-moic '+moicClass(f.moic)+'">'+(f.moic||'\u2014')+'</span>'+
+          '<span class="f-chev">\u203A</span></div>'+
+          '<div class="fund-detail" id="fd-'+idx+'-'+mi+'-'+fi+'"><div class="fd-grid">'+
+          (f.vintage?'<div class="fd-item"><span class="fd-label">Vintage</span><span class="fd-val">'+f.vintage+'</span></div>':'')+
+          (f.commitment?'<div class="fd-item"><span class="fd-label">Commitment</span><span class="fd-val">'+fmtDollar(f.commitment)+'</span></div>':'')+
+          (f.contribs!=null?'<div class="fd-item"><span class="fd-label">Contributions</span><span class="fd-val">'+fmtDollar(f.contribs)+'</span></div>':'')+
+          (f.distribs!=null?'<div class="fd-item"><span class="fd-label">Distributions</span><span class="fd-val">'+fmtDollar(f.distribs)+'</span></div>':'')+
+          (f.nav!=null?'<div class="fd-item"><span class="fd-label">NAV</span><span class="fd-val">'+fmtDollar(f.nav)+'</span></div>':'')+
+          (f.ytdchg!=null?'<div class="fd-item"><span class="fd-label">YTD Change</span><span class="fd-val '+(f.ytdchg>=0?'chg-pos':'chg-neg')+'">'+fmtChg(f.ytdchg)+'</span></div>':'')+
+          (f.unfunded!=null?'<div class="fd-item"><span class="fd-label">Unfunded</span><span class="fd-val">'+fmtDollar(f.unfunded)+'</span></div>':'')+
+          descHTML+noteHTML+
+          '</div>'+coHTML+'</div>';
+      });
+      managersHTML+='<div class="mgr-row" onclick="toggleMgr('+idx+','+mi+',event)">'+
+        '<span class="mgr-name">'+mgr.name+'</span><span class="mgr-count">'+fundCount+' fund'+(fundCount!==1?'s':'')+'</span>'+
+        '<span class="mgr-val">'+fmtDollar(mgrNav)+'</span><span class="mgr-chev" id="mgr-chev-'+idx+'-'+mi+'">\u25BC</span></div>'+
+        '<div class="mgr-detail" id="mgr-'+idx+'-'+mi+'">'+fundsHTML+'</div>';
+    });
+    card.innerHTML='<div class="ac-card-header" onclick="toggleCard('+idx+')">'+
+      '<span class="ac-dot" style="background:'+ac.color+'"></span>'+
+      '<div class="ac-info"><div class="ac-name">'+ac.name+'</div>'+
+      '<div class="ac-sub">'+ac.managers.length+' manager'+(ac.managers.length!==1?'s':'')+' \u00B7 '+totalFunds+' position'+(totalFunds!==1?'s':'')+'</div></div>'+
+      '<div><div class="ac-val">'+fmtDollar(ac.value)+'</div><div class="ac-pct">'+ac.pct+'%</div></div>'+
+      '<span class="chevron">\u25BC</span></div>'+
+      '<div class="ac-card-body">'+managersHTML+'</div>';
+    container.appendChild(card);
+  });
+}
+
+function toggleCo(e,id){e.stopPropagation();const det=document.getElementById('co-det-'+id);const icon=document.getElementById('co-exp-'+id);
+  if(det.classList.contains('show')){det.classList.remove('show');icon.style.transform='';}else{det.classList.add('show');icon.style.transform='rotate(90deg)';}}
+function toggleCoList(acIdx,mgrIdx,fundIdx,e){e.stopPropagation();const list=document.getElementById('co-'+acIdx+'-'+mgrIdx+'-'+fundIdx);const chev=document.getElementById('co-chev-'+acIdx+'-'+mgrIdx+'-'+fundIdx);
+  if(list.style.display==='none'){list.style.display='block';chev.style.transform='rotate(180deg)';}else{list.style.display='none';chev.style.transform='';}}
+function toggleCard(idx){document.getElementById('ac-'+idx).classList.toggle('expanded');}
+function toggleMgr(acIdx,mgrIdx,e){e.stopPropagation();const detail=document.getElementById('mgr-'+acIdx+'-'+mgrIdx);const chev=document.getElementById('mgr-chev-'+acIdx+'-'+mgrIdx);
+  detail.classList.toggle('show');chev.style.transform=detail.classList.contains('show')?'rotate(180deg)':'';}
+function toggleFund(acIdx,mgrIdx,fundIdx,e){e.stopPropagation();document.getElementById('fd-'+acIdx+'-'+mgrIdx+'-'+fundIdx).classList.toggle('show');}
+
+function bvaDollar(v){return (v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString();}
+function bvaVar(v){return (v>=0?'+$':'-$')+Math.abs(Math.round(v)).toLocaleString();}
+function bvaVarClass(dir,v){ if(dir==='invest')return 'var-neutral'; if(dir==='income')return v>=0?'var-good':'var-bad'; return v>0?'var-bad':'var-good'; }
+function renderBudget(){
+  document.getElementById('bvaSummary').innerHTML=
+    '<div class="bva-chip"><div class="c-val var-good">+327%</div><div class="c-lbl">Income vs Budget</div></div>'+
+    '<div class="bva-chip"><div class="c-val var-bad">+16%</div><div class="c-lbl">Spend vs Budget</div></div>'+
+    '<div class="bva-chip"><div class="c-val var-good">+$9.3K</div><div class="c-lbl">Net Cash Flow</div></div>';
+  var box=document.getElementById('bvaCards'); box.innerHTML='';
+  BUDGET.components.forEach(function(c,ci){
+    var varv=c.actual-c.budget, vcls=bvaVarClass(c.dir,varv);
+    var pct=c.budget>0?Math.round(varv/c.budget*100):0;
+    var cats=c.cats.slice().sort(function(a,b){return (b.a||0)-(a.a||0);});
+    var rows='<div class="bva-th"><span class="cat-name">Category</span><span class="cat-bud">Budget</span><span class="cat-act">Actual</span><span class="cat-var">Var</span></div>';
+    cats.forEach(function(cat){
+      var cb=(c.noCatBudget||cat.b==null)?null:cat.b;
+      var cv=cb==null?null:(cat.a-cb);
+      var cvcls=cv==null?'var-neutral':bvaVarClass(c.dir,cv);
+      rows+='<div class="cat-row"><span class="cat-name">'+cat.n+'</span>'+
+        '<span class="cat-bud">'+(cb==null?'—':bvaDollar(cb))+'</span>'+
+        '<span class="cat-act">'+bvaDollar(cat.a)+'</span>'+
+        '<span class="cat-var '+cvcls+'">'+(cv==null?'—':bvaVar(cv))+'</span></div>';
+    });
+    box.innerHTML+='<div class="bva-card" id="bva-'+ci+'"><div class="bva-head" onclick="toggleBva('+ci+')">'+
+      '<span class="bva-bar-dot" style="background:'+c.color+'"></span>'+
+      '<div class="b-info"><div class="b-name">'+c.name+'</div><div class="b-sub">'+c.sub+'</div></div>'+
+      '<div><div class="b-act">'+bvaDollar(c.actual)+'</div><div class="b-var '+vcls+'">'+bvaVar(varv)+' ('+(pct>=0?'+':'')+pct+'%)</div></div>'+
+      '<span class="chevron">▼</span></div>'+
+      '<div class="bva-body">'+rows+'</div></div>';
+  });
+  document.getElementById('bvaFoot').innerHTML=
+    '<div class="ff-row"><span>Total Outflows (spend + investment)</span><span>'+bvaDollar(BUDGET.totalOutflows.a)+' <span style="color:var(--gray);font-weight:400">vs '+bvaDollar(BUDGET.totalOutflows.b)+' budget</span></span></div>'+
+    '<div class="ff-row net"><span>Net Cash Flow</span><span class="var-good">'+bvaVar(BUDGET.netCashFlow.a)+' <span style="color:var(--gray);font-weight:400">vs '+bvaVar(BUDGET.netCashFlow.b)+' budget &#183; favorable swing +$58.4K</span></span></div>';
+}
+function toggleBva(i){ document.getElementById('bva-'+i).classList.toggle('expanded'); }
+
+renderAllocBar();
+renderCards();
+renderBudget();
+
+async function hashStr(s){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+const PW_HASH='5f72adb6849aa13b942b4a5d10f1d1ac318ec25fcdeb78bd941296032d9dac59';
+async function checkPw(){const input=document.getElementById('pwInput');const hash=await hashStr(input.value);
+  if(hash===PW_HASH){document.getElementById('pwOverlay').classList.add('hidden');document.getElementById('mainContent').classList.remove('locked');}
+  else{input.classList.add('pw-error');document.getElementById('pwErr').textContent='Incorrect password';setTimeout(()=>{input.classList.remove('pw-error');},300);input.value='';input.focus();}}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('pwInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPw();});});
+
+/* SEARCH */
+function buildSearchIndex(){const idx=[];assetClasses.forEach((ac,acIdx)=>{(ac.managers||[]).forEach((mgr,mgrIdx)=>{
+  idx.push({type:'manager',name:mgr.name,acIdx:acIdx,mgrIdx:mgrIdx,meta:ac.name});
+  (mgr.funds||[]).forEach((fund,fundIdx)=>{idx.push({type:'fund',name:fund.name,acIdx:acIdx,mgrIdx:mgrIdx,fundIdx:fundIdx,meta:mgr.name,nav:fund.nav,moic:fund.moic});
+    (COMPANIES[fund.name]||[]).forEach((c,coIdx)=>{idx.push({type:'company',name:c.n,acIdx:acIdx,mgrIdx:mgrIdx,fundIdx:fundIdx,coIdx:coIdx,meta:fund.name,industry:c.i||'',moic:c.m||''});});});});});return idx;}
+var searchIndex=[];
+function highlightMatch(t,q){if(!q)return t;var re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return t.replace(re,'<mark>$1</mark>');}
+function doSearch(query){var box=document.getElementById('searchResults');var clearBtn=document.getElementById('searchClear');
+  if(!query||query.length<2){box.classList.remove('show');box.innerHTML='';clearBtn.classList.toggle('show',query.length>0);return;}
+  clearBtn.classList.add('show');if(searchIndex.length===0)searchIndex=buildSearchIndex();var q=query.toLowerCase();
+  var matches=searchIndex.filter(function(i){return i.name.toLowerCase().indexOf(q)!==-1||(i.industry&&i.industry.toLowerCase().indexOf(q)!==-1)||(i.meta&&i.meta.toLowerCase().indexOf(q)!==-1);});
+  if(matches.length===0){box.innerHTML='<div class="search-results-label">No results for "'+query+'"</div>';box.classList.add('show');return;}
+  var shown=matches.slice(0,20);var html='<div class="search-results-label">'+matches.length+' result'+(matches.length!==1?'s':'')+'</div>';
+  shown.forEach(function(item){var badge='<span class="sr-badge '+item.type+'">'+item.type+'</span>';var metaLine=item.meta||'';
+    if(item.type==='company'&&item.industry)metaLine+=' \u00B7 '+item.industry;if(item.type==='fund'&&item.nav)metaLine+=' \u00B7 '+fmtDollar(item.nav);
+    if(item.moic&&item.moic!=='N/A')metaLine+=' \u00B7 '+item.moic;
+    html+='<div class="sr-item" onclick=\'goToResult('+JSON.stringify(item).replace(/'/g,"&#39;").replace(/"/g,'&quot;')+')\'>'+
+      '<div><div class="sr-name">'+highlightMatch(item.name,query)+'</div>'+(metaLine?'<div class="sr-meta">'+highlightMatch(metaLine,query)+'</div>':'')+'</div>'+badge+'</div>';});
+  if(matches.length>20)html+='<div class="sr-meta" style="text-align:center;padding:8px">... and '+(matches.length-20)+' more</div>';
+  box.innerHTML=html;box.classList.add('show');}
+function goToResult(item){clearSearch();
+  var card=document.getElementById('ac-'+item.acIdx);
+  if(card&&!card.classList.contains('expanded'))toggleCard(item.acIdx);
+  var mgrDet=document.getElementById('mgr-'+item.acIdx+'-'+item.mgrIdx);
+  if(mgrDet&&!mgrDet.classList.contains('show'))toggleMgr(item.acIdx,item.mgrIdx,{stopPropagation:function(){}});
+  if(item.type==='company'){
+    var fd=document.getElementById('fd-'+item.acIdx+'-'+item.mgrIdx+'-'+item.fundIdx);
+    if(fd&&!fd.classList.contains('show'))toggleFund(item.acIdx,item.mgrIdx,item.fundIdx,{stopPropagation:function(){}});
+    var coList=document.getElementById('co-'+item.acIdx+'-'+item.mgrIdx+'-'+item.fundIdx);
+    if(coList&&coList.style.display==='none')toggleCoList(item.acIdx,item.mgrIdx,item.fundIdx,{stopPropagation:function(){}});
+    var coId=item.acIdx+'-'+item.mgrIdx+'-'+item.fundIdx+'-'+item.coIdx;
+    var coDet=document.getElementById('co-det-'+coId);
+    if(coDet&&!coDet.classList.contains('show'))toggleCo({stopPropagation:function(){}},coId);
+    setTimeout(function(){var el=document.getElementById('co-det-'+coId);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},180);
+  }else if(item.type==='fund'){
+    var fd=document.getElementById('fd-'+item.acIdx+'-'+item.mgrIdx+'-'+item.fundIdx);
+    if(fd&&!fd.classList.contains('show'))toggleFund(item.acIdx,item.mgrIdx,item.fundIdx,{stopPropagation:function(){}});
+    setTimeout(function(){var el=document.getElementById('fd-'+item.acIdx+'-'+item.mgrIdx+'-'+item.fundIdx);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},180);
+  }else{setTimeout(function(){var el=document.getElementById('mgr-'+item.acIdx+'-'+item.mgrIdx);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},180);}}
+function clearSearch(){var input=document.getElementById('searchInput');input.value='';document.getElementById('searchResults').classList.remove('show');document.getElementById('searchResults').innerHTML='';document.getElementById('searchClear').classList.remove('show');}
+document.addEventListener('DOMContentLoaded',function(){var si=document.getElementById('searchInput');if(si){var d;si.addEventListener('input',function(){clearTimeout(d);d=setTimeout(function(){doSearch(si.value.trim());},150);});}});
+</script>
+</div>
+</body>
+</html>
