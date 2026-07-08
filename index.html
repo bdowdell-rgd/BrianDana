@@ -852,6 +852,11 @@
   .bva-th { font-size:9px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:.3px; border-bottom:1px solid #e0e4eb; }
   .cat-row { border-bottom:1px solid #f5f6f8; }
   .cat-row:last-child { border-bottom:none; }
+  .cat-total { border-top:2px solid #d8dde6; margin-top:2px; }
+  .cat-total .cat-name { font-weight:700; color:var(--navy); }
+  .cat-total .cat-bud, .cat-total .cat-act, .cat-total .cat-var { font-weight:700; color:var(--navy); }
+  .cat-total .cat-var.var-good { color:var(--green); }
+  .cat-total .cat-var.var-bad { color:var(--red); }
   .cat-name { flex:1; color:var(--dark-text); font-weight:500; padding-right:6px; min-width:0; }
   .cat-bud, .cat-act, .cat-var { width:62px; text-align:right; font-size:11px; font-variant-numeric:tabular-nums; flex-shrink:0; }
   .cat-act { font-weight:600; color:var(--navy); }
@@ -880,10 +885,10 @@
 <div id="mainContent" class="main-content locked">
 <div class="header">
   <h1>Brian &amp; Dana Dowdell</h1>
-  <div class="subtitle">Holdings Dashboard &nbsp;|&nbsp; As of May 2026 (private funds Q1 2026)</div>
+  <div class="subtitle">Holdings Dashboard &nbsp;|&nbsp; As of June 30, 2026 (private funds carried at latest statements)</div>
   <div class="total-line">
-    <span class="total-val">$5.77M</span>
-    <span class="total-label">Total Financial Holdings &nbsp;·&nbsp; $7.77M net worth incl. home equity</span>
+    <span class="total-val">$5.75M</span>
+    <span class="total-label">Total Financial Holdings &nbsp;·&nbsp; $7.75M net worth incl. home equity</span>
   </div>
 </div>
 
@@ -891,7 +896,7 @@
   <div class="stat-card"><div class="stat-val">26</div><div class="stat-label">Fund / Angel Positions</div></div>
   <div class="stat-card"><div class="stat-val">83</div><div class="stat-label">Portfolio Companies</div></div>
   <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">RE Properties</div></div>
-  <div class="stat-card"><div class="stat-val">64.2%</div><div class="stat-label">Illiquid</div></div>
+  <div class="stat-card"><div class="stat-val">64.8%</div><div class="stat-label">Illiquid</div></div>
 </div>
 
 <div class="search-wrap">
@@ -918,20 +923,20 @@
   <div class="liq-tiers">
     <div class="liq-card" style="border-top-color: var(--green);">
       <div class="liq-title">Tier 1: Cash</div>
-      <div class="liq-val" style="color:var(--green)">$269K</div>
-      <div class="liq-pct">4.7% of holdings</div>
+      <div class="liq-val" style="color:var(--green)">$177K</div>
+      <div class="liq-pct">3.1% of holdings</div>
       <div class="liq-desc">Cash &amp; money market across Northern Trust and Merrill. Capital-preservation reserve for capital calls and near-term needs.</div>
     </div>
     <div class="liq-card" style="border-top-color: var(--teal);">
       <div class="liq-title">Tier 2: Public Equities + Liquid Credit</div>
-      <div class="liq-val" style="color:var(--teal)">$1.80M</div>
-      <div class="liq-pct">31.2% of holdings</div>
-      <div class="liq-desc">Common stocks, ETFs &amp; structured notes ($1.75M) plus redeemable credit interval funds — Ares SME + Ares Strategic Income ($51K).</div>
+      <div class="liq-val" style="color:var(--teal)">$1.85M</div>
+      <div class="liq-pct">32.1% of holdings</div>
+      <div class="liq-desc">Common stocks (incl. SpaceX), ETFs &amp; structured notes ($1.80M) plus redeemable credit interval funds — Ares SME + Ares Strategic Income ($51K).</div>
     </div>
     <div class="liq-card" style="border-top-color: var(--deep-blue);">
       <div class="liq-title">Tier 3: Illiquid</div>
-      <div class="liq-val" style="color:var(--deep-blue)">$3.70M</div>
-      <div class="liq-pct">64.2% of holdings &nbsp;|&nbsp; 1–10+ years</div>
+      <div class="liq-val" style="color:var(--deep-blue)">$3.73M</div>
+      <div class="liq-pct">64.8% of holdings &nbsp;|&nbsp; 1–10+ years</div>
       <div class="liq-desc">VC funds, angels, direct RE, and illiquid credit (Ares SDL II, Stonepeak). Distributions flow into the reserve tier.</div>
     </div>
   </div>
@@ -940,63 +945,65 @@
 <div class="section">
   <div class="section-title">Snapshot</div>
   <div class="perf-grid">
-    <div class="perf-card highlight"><div class="pv">$5.77M</div><div class="pl">Total Holdings</div></div>
-    <div class="perf-card highlight"><div class="pv">$7.77M</div><div class="pl">Net Worth (incl. home)</div></div>
-    <div class="perf-card"><div class="pv">$3.70M</div><div class="pl">Illiquid (64.2%)</div></div>
-    <div class="perf-card"><div class="pv">$2.07M</div><div class="pl">Liquid (35.8%)</div></div>
+    <div class="perf-card highlight"><div class="pv">$5.75M</div><div class="pl">Total Holdings</div></div>
+    <div class="perf-card highlight"><div class="pv">$7.75M</div><div class="pl">Net Worth (incl. home)</div></div>
+    <div class="perf-card"><div class="pv">$3.73M</div><div class="pl">Illiquid (64.8%)</div></div>
+    <div class="perf-card"><div class="pv">$2.03M</div><div class="pl">Liquid (35.2%)</div></div>
     <div class="perf-card"><div class="pv">$2.0M</div><div class="pl">Home Equity (Via Aguila)</div></div>
     <div class="perf-card"><div class="pv">$806K</div><div class="pl">Largest: OV Opp Fund I</div></div>
   </div>
 </div>
 
 <div class="section">
-  <div class="section-title">Q1 2026 Budget vs Actual <span class="badge">TAP TO DRILL DOWN</span></div>
+  <div class="section-title">Q1 → Q2 2026 Activity Change <span class="badge">TAP TO DRILL DOWN</span></div>
   <div class="bva-summary" id="bvaSummary"></div>
   <div id="bvaCards"></div>
   <div class="bva-foot" id="bvaFoot"></div>
 </div>
 
 <div class="footer">
-  Brian &amp; Dana Dowdell &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; Holdings as of May 2026 (private funds Q1 2026)<br>
-  Public equities &amp; cash valued 5/29/26. Past performance is not indicative of future results. Values are unaudited estimates.
+  Brian &amp; Dana Dowdell &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; Holdings as of June 30, 2026 (private funds carried at latest statements)<br>
+  Public equities, credit &amp; cash valued 6/30/26. Past performance is not indicative of future results. Values are unaudited estimates.
 </div>
 
 <script>
-const TOTAL_NAV = 5771749;
-const assetClasses = [{"name": "Venture Capital", "value": 2397402, "pct": 41.5, "color": "#1E2761", "managers": [{"name": "Okapi Ventures", "funds": [{"name": "OV Opp Fund I", "cat": "VC", "vintage": 2021, "moic": "1.9x", "commitment": 500000, "contribs": 487500, "distribs": 0, "nav": 805806, "ytdchg": -618, "unfunded": 12500}, {"name": "OV IV (Okapi)", "cat": "VC", "vintage": 2020, "moic": "1.0x", "commitment": 250000, "contribs": 228750, "distribs": 0, "nav": 196834, "ytdchg": 5003, "unfunded": 21250, "note": "As of Q1 2026 (capital account, Tax ID …2333)"}, {"name": "OV5 (Okapi)", "cat": "VC", "vintage": 2025, "moic": "~1.0x", "commitment": 100000, "contribs": 30000, "distribs": 0, "nav": 28100, "ytdchg": 9340, "unfunded": 70000}]}, {"name": "Ankona Capital", "funds": [{"name": "Ankona Capital I", "cat": "VC", "vintage": 2021, "moic": "1.85x", "commitment": 200000, "contribs": 200000, "distribs": 0, "nav": 305315, "ytdchg": 8946, "unfunded": 0, "note": "As of Q4 2025 (Brian Dowdell capital account)"}, {"name": "Ankona Capital II", "cat": "VC", "vintage": 2023, "moic": "1.39x", "commitment": 250000, "contribs": 162625, "distribs": 0, "nav": 194348, "ytdchg": 6571, "unfunded": 87375, "note": "As of Q4 2025 (Brian Dowdell capital account)"}]}, {"name": "Muse Capital", "funds": [{"name": "Muse Capital II", "cat": "VC", "vintage": 2022, "moic": "0.81x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 78809, "ytdchg": -9371, "unfunded": 0, "note": "As of Q4 2025 (Dana Dowdell capital account)"}]}, {"name": "Emmeline Ventures", "funds": [{"name": "Emmeline Ventures I", "cat": "VC", "vintage": 2022, "moic": "1.25x", "commitment": 100000, "contribs": 37500, "distribs": 0, "nav": 35767, "ytdchg": null, "unfunded": 62500, "note": "Q3 2025 data — no Q1 2026 statement"}]}, {"name": "Dangerous Ventures", "funds": [{"name": "Dangerous Ventures I", "cat": "VC", "vintage": 2022, "moic": "0.96x", "commitment": 50000, "contribs": 41250, "distribs": 0, "nav": 33989, "ytdchg": 878, "unfunded": 8750}]}, {"name": "Direct Angel", "funds": [{"name": "Project Prometheus", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 250000, "contribs": 250000, "distribs": 0, "nav": 250000, "ytdchg": null, "unfunded": 0, "note": "New angel position added Q1 2026"}, {"name": "TCA ACE Fund 20", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 21", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "myCOI", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 22", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "Iridia", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "TrackStreet (direct)", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 43434, "contribs": 43434, "distribs": 0, "nav": 43434, "unfunded": 0}, {"name": "CampusTree", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 25000, "contribs": 25000, "distribs": 0, "nav": 25000, "unfunded": 0}]}]}, {"name": "Public Equities", "value": 1748343, "pct": 30.3, "color": "#2E4A8E", "managers": [{"name": "Northern Trust", "funds": [{"name": "JPMorgan Structured Notes", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 739775, "desc": "Equity index-linked structured notes (2 tranches)"}, {"name": "Apple (AAPL)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 174068}, {"name": "Berkshire Hathaway (BRK.B)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 112194}, {"name": "Accenture (ACN)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 85810}]}, {"name": "Merrill Lynch", "funds": [{"name": "MLWUE Intl Basket Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 228400, "desc": "CIBC 257% participation, due 2/25/28"}, {"name": "MLZUM SX5E Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 193760, "desc": "CIBC 226% participation, due 3/29/30"}, {"name": "SPY (S&P 500 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 62025}, {"name": "TAN (Solar ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 29432}, {"name": "ICLN (Clean Energy ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 25690}, {"name": "CGW (Global Water ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 23833}, {"name": "IWM (Russell 2000 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 23245}, {"name": "VYM (High Div Yield ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 17489}, {"name": "QQQ (Nasdaq 100 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 16964}, {"name": "ARKQ (Autonomous Tech ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 15656}]}]}, {"name": "Real Estate", "value": 1077112, "pct": 18.7, "color": "#B8860B", "managers": [{"name": "RanchHarbor", "funds": [{"name": "RanchHarbor (Fund I + Directs)", "cat": "RE", "vintage": 2020, "moic": "1.28x", "commitment": 500000, "contribs": 543450, "distribs": 288734, "nav": 408132, "unfunded": 0}]}, {"name": "Three Pillar Communities", "funds": [{"name": "Three Pillar (Fund 2 + Directs)", "cat": "RE", "vintage": 2021, "moic": "1.08x", "commitment": 150000, "contribs": 150000, "distribs": 11480, "nav": 150000, "unfunded": 0}]}, {"name": "Laguna Point Properties", "funds": [{"name": "Laguna Point Properties", "cat": "RE", "vintage": 2022, "moic": "1.00x", "commitment": 202058, "contribs": 202058, "distribs": 0, "nav": 202058, "unfunded": 0}]}, {"name": "IEQ Capital", "funds": [{"name": "IEQ Bridge MF IV", "cat": "RE", "vintage": 2018, "moic": "1.55x", "commitment": 62500, "contribs": 64975, "distribs": 22931, "nav": 66922, "unfunded": 0, "note": "Prior data — no Q1 2026 statement"}]}, {"name": "Other Direct RE", "funds": [{"name": "Oasis Dominical", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 150000, "contribs": 150000, "distribs": 0, "nav": 150000, "unfunded": 0}, {"name": "LVWG", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}]}]}, {"name": "Credit", "value": 280324, "pct": 4.9, "color": "#1A8CAA", "managers": [{"name": "Ares", "funds": [{"name": "Ares Senior Direct Lending II", "cat": "CREDIT", "vintage": 2021, "moic": "1.28x", "commitment": 200000, "contribs": 158000, "distribs": 45219, "nav": 115526, "unfunded": 0, "note": "Marked to current Merrill value"}, {"name": "Ares SME O TE", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 26271, "desc": "Liquid credit (interval fund)"}, {"name": "Ares Strategic Income", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 24679, "desc": "Liquid credit (interval fund)"}]}, {"name": "Stonepeak", "funds": [{"name": "Stonepeak Global Renewables", "cat": "CREDIT", "vintage": 2021, "moic": "1.11x", "commitment": 200000, "contribs": 115000, "distribs": 22928, "nav": 113847, "unfunded": 85000, "note": "Marked to current Merrill value"}]}]}, {"name": "Cash", "value": 268568, "pct": 4.6, "color": "#7F8C8D", "managers": [{"name": "Merrill Lynch", "funds": [{"name": "ML Bank Deposit Program", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 133477}, {"name": "BLF FedFund (TFDXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 53740}, {"name": "BofA RASP (IIAXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 10625}]}, {"name": "Northern Trust", "funds": [{"name": "NOGXX Money Market", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 70726}]}]}];
+const TOTAL_NAV = 5754641;
+const assetClasses = [{"name": "Venture Capital", "value": 2419902, "pct": 42.1, "color": "#1E2761", "managers": [{"name": "Okapi Ventures", "funds": [{"name": "OV Opp Fund I", "cat": "VC", "vintage": 2021, "moic": "1.9x", "commitment": 500000, "contribs": 487500, "distribs": 0, "nav": 805806, "ytdchg": -618, "unfunded": 12500}, {"name": "OV IV (Okapi)", "cat": "VC", "vintage": 2020, "moic": "1.0x", "commitment": 250000, "contribs": 228750, "distribs": 0, "nav": 196834, "ytdchg": 5003, "unfunded": 21250, "note": "As of Q1 2026 (capital account, Tax ID …2333)"}, {"name": "OV5 (Okapi)", "cat": "VC", "vintage": 2025, "moic": "~1.0x", "commitment": 100000, "contribs": 30000, "distribs": 0, "nav": 28100, "ytdchg": 9340, "unfunded": 70000}]}, {"name": "Ankona Capital", "funds": [{"name": "Ankona Capital I", "cat": "VC", "vintage": 2021, "moic": "1.85x", "commitment": 200000, "contribs": 200000, "distribs": 0, "nav": 305315, "ytdchg": 8946, "unfunded": 0, "note": "As of Q4 2025 (Brian Dowdell capital account)"}, {"name": "Ankona Capital II", "cat": "VC", "vintage": 2023, "moic": "1.39x", "commitment": 250000, "contribs": 170125, "distribs": 0, "nav": 201848, "ytdchg": 7500, "unfunded": 79875, "note": "Q4 2025 marks + Q2 2026 $7,500 capital call"}]}, {"name": "Muse Capital", "funds": [{"name": "Muse Capital II", "cat": "VC", "vintage": 2022, "moic": "0.81x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 78809, "ytdchg": -9371, "unfunded": 0, "note": "As of Q4 2025 (Dana Dowdell capital account)"}]}, {"name": "Emmeline Ventures", "funds": [{"name": "Emmeline Ventures I", "cat": "VC", "vintage": 2022, "moic": "1.25x", "commitment": 100000, "contribs": 52500, "distribs": 0, "nav": 50767, "ytdchg": 15000, "unfunded": 47500, "note": "Q3 2025 marks + Q2 2026 $15,000 capital call"}]}, {"name": "Dangerous Ventures", "funds": [{"name": "Dangerous Ventures I", "cat": "VC", "vintage": 2022, "moic": "0.96x", "commitment": 50000, "contribs": 41250, "distribs": 0, "nav": 33989, "ytdchg": 878, "unfunded": 8750}]}, {"name": "Direct Angel", "funds": [{"name": "Project Prometheus", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 250000, "contribs": 250000, "distribs": 0, "nav": 250000, "ytdchg": null, "unfunded": 0, "note": "New angel position added Q1 2026"}, {"name": "TCA ACE Fund 20", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 21", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "myCOI", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}, {"name": "TCA ACE Fund 22", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "Iridia", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 50000, "contribs": 50000, "distribs": 0, "nav": 50000, "unfunded": 0}, {"name": "TrackStreet (direct)", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 43434, "contribs": 43434, "distribs": 0, "nav": 43434, "unfunded": 0}, {"name": "CampusTree", "cat": "Angel", "vintage": null, "moic": "N/A", "commitment": 25000, "contribs": 25000, "distribs": 0, "nav": 25000, "unfunded": 0}]}]}, {"name": "Public Equities", "value": 1797825, "pct": 31.2, "color": "#2E4A8E", "managers": [{"name": "Northern Trust", "funds": [{"name": "JPMorgan Structured Notes", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 771315, "desc": "Equity index-linked structured notes (2 tranches: TR 00018 + TR 00631)"}, {"name": "Apple (AAPL)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 161174}, {"name": "Berkshire Hathaway (BRK.B)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 117592}, {"name": "Accenture (ACN)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 59856}]}, {"name": "Merrill Lynch", "funds": [{"name": "MLWUE Intl Basket Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 242300, "desc": "CIBC 257% participation, due 2/25/28"}, {"name": "MLZUM SX5E Note", "cat": "NOTE", "vintage": null, "moic": "N/A", "nav": 202080, "desc": "CIBC 226% participation, due 3/29/30"}, {"name": "SpaceX (SPCX)", "cat": "STOCK", "vintage": null, "moic": "N/A", "nav": 38033, "desc": "Space Exploration Technologies Cl A — new liquid position"}, {"name": "SPY (S&P 500 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 61358}, {"name": "CGW (Global Water ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 24994}, {"name": "IWM (Russell 2000 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 24130}, {"name": "TAN (Solar ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 23640}, {"name": "ICLN (Clean Energy ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 22616}, {"name": "VYM (High Div Yield ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 17443}, {"name": "QQQ (Nasdaq 100 ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 16767}, {"name": "ARKQ (Autonomous Tech ETF)", "cat": "ETF", "vintage": null, "moic": "N/A", "nav": 14527}]}]}, {"name": "Real Estate", "value": 1077112, "pct": 18.7, "color": "#B8860B", "managers": [{"name": "RanchHarbor", "funds": [{"name": "RanchHarbor (Fund I + Directs)", "cat": "RE", "vintage": 2020, "moic": "1.28x", "commitment": 500000, "contribs": 543450, "distribs": 288734, "nav": 408132, "unfunded": 0}]}, {"name": "Three Pillar Communities", "funds": [{"name": "Three Pillar (Fund 2 + Directs)", "cat": "RE", "vintage": 2021, "moic": "1.08x", "commitment": 150000, "contribs": 150000, "distribs": 11480, "nav": 150000, "unfunded": 0}]}, {"name": "Laguna Point Properties", "funds": [{"name": "Laguna Point Properties", "cat": "RE", "vintage": 2022, "moic": "1.00x", "commitment": 202058, "contribs": 202058, "distribs": 0, "nav": 202058, "unfunded": 0}]}, {"name": "IEQ Capital", "funds": [{"name": "IEQ Bridge MF IV", "cat": "RE", "vintage": 2018, "moic": "1.55x", "commitment": 62500, "contribs": 64975, "distribs": 22931, "nav": 66922, "unfunded": 0, "note": "Prior data — no Q1 2026 statement"}]}, {"name": "Other Direct RE", "funds": [{"name": "Oasis Dominical", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 150000, "contribs": 150000, "distribs": 0, "nav": 150000, "unfunded": 0}, {"name": "LVWG", "cat": "RE", "vintage": null, "moic": "1.00x", "commitment": 100000, "contribs": 100000, "distribs": 0, "nav": 100000, "unfunded": 0}]}]}, {"name": "Credit", "value": 283276, "pct": 4.9, "color": "#1A8CAA", "managers": [{"name": "Ares", "funds": [{"name": "Ares Senior Direct Lending II", "cat": "CREDIT", "vintage": 2021, "moic": "1.28x", "commitment": 200000, "contribs": 158000, "distribs": 45219, "nav": 112315, "unfunded": 0, "note": "Marked to current Merrill value"}, {"name": "Ares SME O TE", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 26356, "desc": "Liquid credit (interval fund)"}, {"name": "Ares Strategic Income", "cat": "CREDIT", "vintage": null, "moic": "N/A", "nav": 24725, "desc": "Liquid credit (interval fund)"}]}, {"name": "Stonepeak", "funds": [{"name": "Stonepeak Global Renewables", "cat": "CREDIT", "vintage": 2021, "moic": "1.11x", "commitment": 200000, "contribs": 115000, "distribs": 22928, "nav": 119880, "unfunded": 85000, "note": "Marked to current Merrill value"}]}]}, {"name": "Cash", "value": 176526, "pct": 3.1, "color": "#7F8C8D", "managers": [{"name": "Merrill Lynch", "funds": [{"name": "ML Bank Deposit Program", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 40027}, {"name": "BLF FedFund (TFDXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 54567}, {"name": "BofA RASP (IIAXX)", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 11028}]}, {"name": "Northern Trust", "funds": [{"name": "Northern Funds US Govt MMF", "cat": "CASH", "vintage": null, "moic": "N/A", "nav": 70904}]}]}];
 const COMPANIES = {"OV Opp Fund I": [{"n": "FigureAI", "i": "AI robotics (Series B/C SPV)", "m": "5.3x", "c": 2000000, "f": 10547000}, {"n": "SpecRight", "i": "Supply chain data, $21.6M ARR", "m": "1.8x", "c": 6900000, "f": 12400000}, {"n": "Trellis Research", "i": "Legal research, $14.4M ARR", "m": "1.4x", "c": 3250000, "f": 4597000}, {"n": "Slingshot Aerospace", "i": "Space/defense, $39M rev", "m": "1.4x", "c": 3000000, "f": 4294000}, {"n": "Daasity", "i": "E-commerce analytics", "m": "1.0x", "c": 2407000, "f": 2407000}, {"n": "ChargeZoom", "i": "Fintech, 100% YoY ARR", "m": "1.0x", "c": 1200000, "f": 1241000}, {"n": "TrackStreet", "i": "Brand protection, $10.5M ARR", "m": "1.5x", "c": 617000, "f": 894000}], "OV IV (Okapi)": [{"n": "Network Perception / Dragos", "i": "Cybersecurity (acquired by Dragos)", "m": "2.6x", "c": 2171000, "f": 5593000}, {"n": "Chargezoom", "i": "Fintech", "m": "1.5x", "c": 3177000, "f": 4752000}, {"n": "Occuspace", "i": "Space utilization, $3.3M ARR", "m": "1.4x", "c": 1900000, "f": 2628000}, {"n": "WeGive", "i": "Charitable giving platform", "m": "1.6x", "c": 1105000, "f": 1784000}, {"n": "Trnsact", "i": "Auto dealer finance", "m": "2.5x", "c": 700000, "f": 1730000}, {"n": "KredosAI", "i": "AI SaaS, $3.5M ARR", "m": "2.1x", "c": 794000, "f": 1640000}, {"n": "PlanStreet", "i": "Case management SaaS", "m": "1.6x", "c": 1000000, "f": 1558000}, {"n": "StockApp", "i": "Fintech", "m": "1.0x", "c": 1500000, "f": 1500000}, {"n": "LeadrPro", "i": "B2B software demos", "m": "1.5x", "c": 750000, "f": 1125000}, {"n": "GoodHood (fka FixMyCar)", "i": "Auto services", "m": "1.0x", "c": 800000, "f": 814000}, {"n": "MAYU Water", "i": "Consumer", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Paladin Cloud", "i": "Cloud security (writedown)", "m": "0.1x", "c": 2000000, "f": 200000}, {"n": "Fluid Power AI", "i": "Industrial AI (writedown)", "m": "0.2x", "c": 500000, "f": 100000}, {"n": "DepoDirect", "i": "Legal tech", "m": "-0.3x", "c": 440000, "r": 73000, "f": 74000}, {"n": "Multiplayer / DeepCast / NotiSphere / Violux", "i": "5 write-offs ($6.6M total)", "m": "0.0x", "c": 6590000, "f": 0}], "OV5 (Okapi)": [{"n": "Aline Technologies", "i": "Workplace mgmt, $1.6M ARR (4x since Jul)", "c": 250000, "f": 250000}, {"n": "MagicDoor", "i": "Property mgmt AI, 11,000 units", "m": "1.1x", "c": 700000, "f": 770000}, {"n": "IP Author", "i": "AI IP mgmt (Google, Qualcomm, Nokia)", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Clearspace Tech", "i": "Y-Combinator, >$1M ARR", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "Forest-pkg", "i": "Packaging (pre-seed, added Q1)", "m": "1.0x", "c": 500000, "f": 500000}, {"n": "FeltSense", "i": "Pre-launch AI", "m": "1.0x", "c": 250000, "f": 250000}], "Ankona Capital I": [{"n": "Soci Parent Co.", "i": "Marketing platform", "m": "2.83x", "c": 8700000, "f": 24600000}, {"n": "Canopy Tax", "i": "Tax automation software", "m": "2.78x", "c": 7000000, "f": 19500000}, {"n": "VideoAmp", "i": "Media measurement", "m": "2.08x", "c": 10700000, "f": 22200000}, {"n": "Lawmatics", "i": "Legal CRM", "m": "2.11x", "f": 12700000}, {"n": "Cordial Experience", "i": "Marketing automation", "m": "2.02x", "f": 16700000}, {"n": "Negotiatus Corp.", "i": "Procurement", "m": "1.14x", "f": 3400000}, {"n": "PropelPLM", "i": "PLM software", "m": "1.0x", "f": 7500000}, {"n": "GoSite", "i": "SMB software (written to zero)", "m": "0.00x", "c": 6500000, "f": 0}], "Ankona Capital II": [{"n": "Alleva Corp.", "i": "Healthcare SaaS", "m": "1.99x", "c": 6300000, "f": 12500000}, {"n": "Orca AI", "i": "AI maritime navigation", "m": "1.75x", "c": 4400000, "f": 7700000}, {"n": "Smartly / Bonusly", "i": "HR / employee recognition", "m": "1.59x", "c": 6300000, "f": 10000000}, {"n": "Canopy Tax", "i": "Tax automation (Series C)", "m": "1.43x"}, {"n": "VideoAmp", "i": "Media measurement (Series F)", "m": "1.24x"}, {"n": "Walla Software", "i": "Fitness SaaS", "m": "1.19x"}, {"n": "ABXR Labs", "i": "New position", "m": "1.0x"}], "Muse Capital II": [{"n": "Futureverse Corp.", "i": "Web3 and AI platform", "m": "2.14x", "c": 200000, "f": 428000}, {"n": "Conceivable Life Sci.", "i": "Fertility tech (IVF)", "m": "1.51x", "c": 542000, "f": 821000}, {"n": "Eli Health", "i": "Instant hormone testing", "m": "1.12x", "c": 1600000, "f": 1800000}, {"n": "Mavida Health", "i": "Perinatal mental health", "m": "1.0x"}, {"n": "Ohai.ai", "i": "Family management SaaS", "m": "1.0x"}, {"n": "Handled Legal", "i": "Legal AI", "m": "1.0x"}, {"n": "Starry Night Labs", "i": "Consumer (w/ warrants)", "m": "1.0x"}, {"n": "Reel Products", "i": "Eco-friendly CPG", "m": "0.80x", "c": 750000, "f": 600000}, {"n": "Kinside", "i": "Childcare (acq. by UrbanSitter)", "m": "0.44x", "c": 1000000, "f": 440000}], "Emmeline Ventures I": [{"n": "Alloy Health", "i": "Women's health (Series A-2)", "m": "4.90x", "c": 150000, "f": 736000}, {"n": "Well Found", "i": "Health (Series A)", "m": "1.44x", "c": 200000, "f": 288000}, {"n": "e-Lōvu Health", "i": "Women's health tech", "m": "1.16x", "c": 500000, "f": 579000}, {"n": "SocialMama", "i": "$300K SAFE", "m": "1.0x"}, {"n": "Wealth More", "i": "$250K SAFE", "m": "1.0x"}, {"n": "The Beans", "i": "Fintech (4 SAFEs)", "m": "1.0x"}, {"n": "Sugarfina", "i": "Consumer (Series B pref)", "m": "1.0x"}, {"n": "Clutch Wallet", "i": "$30K SAFE (written to zero)", "m": "0.00x"}, {"n": "Deux Foods", "i": "$100K SAFE (written to zero)", "m": "0.00x"}, {"n": "She Matters", "i": "$50K SAFE (written to zero)", "m": "0.00x"}], "Dangerous Ventures I": [{"n": "Overview Energy", "i": "Energy storage tech", "m": "1.97x", "c": 25000, "f": 49000}, {"n": "Safire Technology", "i": "Clean energy tech", "m": "1.43x", "c": 50000, "f": 71000}, {"n": "Enduring Planet", "i": "Climate finance platform", "m": "1.32x", "c": 100000, "f": 132000}, {"n": "Epistemix", "i": "Simulation / modeling", "m": "1.25x", "f": 63000}, {"n": "Skyward Wildfire", "i": "Wildfire prevention", "m": "1.02x"}, {"n": "Treau", "i": "HVAC / heat pump", "m": "1.0x"}, {"n": "Harvest Thermal", "i": "Heat pump", "m": "1.0x"}, {"n": "Senate Inc", "i": "Series A-2", "m": "0.29x", "c": 110000, "f": 32000}, {"n": "Qu POS / Powerx", "i": "Convertible note (writedown)", "m": "0.17x", "c": 100000, "f": 17000}], "RanchHarbor (Fund I + Directs)": [{"n": "Fund I", "i": "San Dimas Industrial (LA) + Duval at Midtown (Austin)", "m": "1.50x proj"}, {"n": "The Coronado", "i": "44-unit MF, Phoenix AZ — 95.5% occ, capital returned via refi", "m": "2.2x proj"}, {"n": "Signal Hill Industrial", "i": "18,998 SF, Signal Hill CA — re-leasing", "m": "At cost"}, {"n": "Curtis Junction", "i": "112-unit apts, Boise ID — 91% occ, DSCR 0.88x", "m": "Neg CF"}, {"n": "Albuquerque", "i": "Sold — $449K returned on $168K basis", "m": "Realized"}], "Three Pillar (Fund 2 + Directs)": [{"n": "Sandell MHP", "i": "Fund 2 — Corsicana TX, 90 units, NOI +41% vs budget", "m": "13.1% yld"}, {"n": "Summerville Hayes", "i": "Direct — SC, 130/133 occ, rent raised to $779", "m": "At cost"}, {"n": "Project Rebar-OZ", "i": "Direct — Livermore CA, 10 tenants, $70.5K/mo", "m": "At cost"}, {"n": "Dotsero MHP", "i": "Fund 2 — in contract to sell $13.65M (cost $5.8M)", "m": "For sale"}], "Laguna Point Properties": [{"n": "Coastal Bay (FL)", "i": "Jacksonville, 350 units — 93.7% occ", "m": "N/A"}, {"n": "Grove at Millenia (FL)", "i": "Orlando, 148 units — 95.0% occ", "m": "N/A"}, {"n": "Harmon at 370 (NV)", "i": "Las Vegas, 996 units — 78.2% occ (under contract)", "m": "N/A"}]};
 const BUDGET = {
  components:[
-  {key:"income", name:"Income", budget:85750, actual:366506, dir:"income", color:"#2E8B57",
-   sub:"Budget $85.8K · Actual $366.5K", cats:[
-    {n:"Other Income (distributions, note maturity)", b:31250, a:321506},
-    {n:"RGD Income", b:45000, a:45000},
-    {n:"Gifts", b:9500, a:0} ]},
-  {key:"spend", name:"Spend", budget:66750, actual:77322, dir:"spend", color:"#C0392B",
-   sub:"Budget $66.8K · Actual $77.3K", cats:[
-    {n:"Housing", b:30000, a:31955},
-    {n:"Apple Card", b:2500, a:14868},
-    {n:"Household", b:3750, a:10495},
-    {n:"Restaurants", b:3000, a:3694},
-    {n:"Groceries", b:3750, a:3448},
-    {n:"Health", b:5000, a:3359},
-    {n:"Work Expense", b:5000, a:3300},
-    {n:"Miscellaneous", b:500, a:1746},
-    {n:"Transportation", b:1250, a:1555},
-    {n:"Entertainment", b:1250, a:1570},
-    {n:"Travel", b:2500, a:1332},
-    {n:"Moving", b:5000, a:0},
-    {n:"New Baby", b:2500, a:0},
-    {n:"Child Care", b:750, a:0} ]},
-  {key:"invest", name:"Investment Outflows", budget:68125, actual:279905, dir:"invest", color:"#1A8CAA",
-   sub:"Budget $68.1K · Actual $279.9K", noCatBudget:true, cats:[
-    {n:"2016 Via Aguila (mortgage paydown)", a:230000},
-    {n:"Real Estate (capital calls, net)", a:29905},
-    {n:"Asset Transfer", a:10000},
-    {n:"Venture Capital (Ankona II)", a:10000} ]},
+  {key:"income", name:"Income", q1:366506, q2:252948, dir:"income", color:"#2E8B57",
+   sub:"Q1 $366.5K → Q2 $252.9K", cats:[
+    {n:"Other Income (distributions, note maturity)", q1:321506, q2:207948},
+    {n:"RGD Income", q1:45000, q2:45000},
+    {n:"Gifts", q1:0, q2:0} ]},
+  {key:"spend", name:"Actual Expenses", q1:77667, q2:58554, dir:"spend", color:"#C0392B",
+   sub:"Q1 $77.7K → Q2 $58.6K", cats:[
+    {n:"Housing", q1:31955, q2:22920},
+    {n:"Apple Card", q1:14868, q2:2729},
+    {n:"Household", q1:10495, q2:3445},
+    {n:"Restaurants", q1:3694, q2:4093},
+    {n:"Groceries", q1:3448, q2:5112},
+    {n:"Health", q1:3359, q2:3121},
+    {n:"Work Expense", q1:3300, q2:3800},
+    {n:"Entertainment", q1:1570, q2:3310},
+    {n:"Miscellaneous", q1:1746, q2:644},
+    {n:"Transportation", q1:1555, q2:1460},
+    {n:"Travel", q1:1332, q2:5597},
+    {n:"Moving", q1:0, q2:2019},
+    {n:"Charity", q1:345, q2:306} ]},
+  {key:"invest", name:"Investment Activity", q1:280805, q2:392531, dir:"invest", color:"#1A8CAA",
+   sub:"Q1 $280.8K → Q2 $392.5K", cats:[
+    {n:"Venture Capital (Prometheus, Ankona II, Emmeline)", q1:10000, q2:272500},
+    {n:"Taxes (estimated payments)", q1:0, q2:56000},
+    {n:"Stocks (SpaceX, Betterment)", q1:900, q2:42871},
+    {n:"Asset Transfer", q1:10000, q2:12000},
+    {n:"Real Estate (capital calls, net)", q1:29905, q2:9000},
+    {n:"2016 Via Aguila (mortgage principal)", q1:230000, q2:0},
+    {n:"Expenses", q1:0, q2:160} ]},
  ],
- totalOutflows:{b:134875, a:357227},
- netCashFlow:{b:-49125, a:9279},
+ totalOutflows:{q1:358471, q2:451085},
+ netCashFlow:{q1:8035, q2:-198137},
 };
 
 function fmtCo(v){if(v==null)return '\u2014';if(Math.abs(v)>=1e9)return '$'+(v/1e9).toFixed(1)+'B';if(Math.abs(v)>=1e6)return '$'+(v/1e6).toFixed(1)+'M';if(Math.abs(v)>=1e3)return '$'+(v/1e3).toFixed(0)+'K';return '$'+v.toLocaleString();}
@@ -1093,38 +1100,44 @@ function toggleMgr(acIdx,mgrIdx,e){e.stopPropagation();const detail=document.get
 function toggleFund(acIdx,mgrIdx,fundIdx,e){e.stopPropagation();document.getElementById('fd-'+acIdx+'-'+mgrIdx+'-'+fundIdx).classList.toggle('show');}
 
 function bvaDollar(v){return (v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString();}
-function bvaVar(v){return (v>=0?'+$':'-$')+Math.abs(Math.round(v)).toLocaleString();}
+function bvaDelta(v){return (v>=0?'+$':'-$')+Math.abs(Math.round(v)).toLocaleString();}
 function bvaVarClass(dir,v){ if(dir==='invest')return 'var-neutral'; if(dir==='income')return v>=0?'var-good':'var-bad'; return v>0?'var-bad':'var-good'; }
+function pctChg(a,b){ if(!a)return null; return Math.round((b-a)/Math.abs(a)*100); }
 function renderBudget(){
+  var sp=BUDGET.components.filter(function(c){return c.key==='spend';})[0];
+  var inv=BUDGET.components.filter(function(c){return c.key==='invest';})[0];
+  var spD=sp.q2-sp.q1, invD=inv.q2-inv.q1;
   document.getElementById('bvaSummary').innerHTML=
-    '<div class="bva-chip"><div class="c-val var-good">+327%</div><div class="c-lbl">Income vs Budget</div></div>'+
-    '<div class="bva-chip"><div class="c-val var-bad">+16%</div><div class="c-lbl">Spend vs Budget</div></div>'+
-    '<div class="bva-chip"><div class="c-val var-good">+$9.3K</div><div class="c-lbl">Net Cash Flow</div></div>';
+    '<div class="bva-chip"><div class="c-val '+bvaVarClass('spend',spD)+'">'+bvaDelta(spD)+'</div><div class="c-lbl">Expenses Q1→Q2 ('+pctChg(sp.q1,sp.q2)+'%)</div></div>'+
+    '<div class="bva-chip"><div class="c-val var-neutral">'+bvaDelta(invD)+'</div><div class="c-lbl">Investment Q1→Q2 (+'+pctChg(inv.q1,inv.q2)+'%)</div></div>'+
+    '<div class="bva-chip"><div class="c-val var-bad">'+bvaDollar(BUDGET.netCashFlow.q2)+'</div><div class="c-lbl">Q2 Net Cash Flow</div></div>';
   var box=document.getElementById('bvaCards'); box.innerHTML='';
   BUDGET.components.forEach(function(c,ci){
-    var varv=c.actual-c.budget, vcls=bvaVarClass(c.dir,varv);
-    var pct=c.budget>0?Math.round(varv/c.budget*100):0;
-    var cats=c.cats.slice().sort(function(a,b){return (b.a||0)-(a.a||0);});
-    var rows='<div class="bva-th"><span class="cat-name">Category</span><span class="cat-bud">Budget</span><span class="cat-act">Actual</span><span class="cat-var">Var</span></div>';
+    var d=c.q2-c.q1, vcls=bvaVarClass(c.dir,d);
+    var pct=pctChg(c.q1,c.q2);
+    var cats=c.cats.slice().sort(function(a,b){return (b.q2||0)-(a.q2||0);});
+    var rows='<div class="bva-th"><span class="cat-name">Category</span><span class="cat-bud">Q1</span><span class="cat-act">Q2</span><span class="cat-var">Chg</span></div>';
     cats.forEach(function(cat){
-      var cb=(c.noCatBudget||cat.b==null)?null:cat.b;
-      var cv=cb==null?null:(cat.a-cb);
-      var cvcls=cv==null?'var-neutral':bvaVarClass(c.dir,cv);
+      var cd=cat.q2-cat.q1; var cvcls=bvaVarClass(c.dir,cd);
       rows+='<div class="cat-row"><span class="cat-name">'+cat.n+'</span>'+
-        '<span class="cat-bud">'+(cb==null?'—':bvaDollar(cb))+'</span>'+
-        '<span class="cat-act">'+bvaDollar(cat.a)+'</span>'+
-        '<span class="cat-var '+cvcls+'">'+(cv==null?'—':bvaVar(cv))+'</span></div>';
+        '<span class="cat-bud">'+bvaDollar(cat.q1)+'</span>'+
+        '<span class="cat-act">'+bvaDollar(cat.q2)+'</span>'+
+        '<span class="cat-var '+cvcls+'">'+bvaDelta(cd)+'</span></div>';
     });
+    rows+='<div class="cat-row cat-total"><span class="cat-name">Total '+c.name+'</span>'+
+      '<span class="cat-bud">'+bvaDollar(c.q1)+'</span>'+
+      '<span class="cat-act">'+bvaDollar(c.q2)+'</span>'+
+      '<span class="cat-var '+vcls+'">'+bvaDelta(d)+'</span></div>';
     box.innerHTML+='<div class="bva-card" id="bva-'+ci+'"><div class="bva-head" onclick="toggleBva('+ci+')">'+
       '<span class="bva-bar-dot" style="background:'+c.color+'"></span>'+
       '<div class="b-info"><div class="b-name">'+c.name+'</div><div class="b-sub">'+c.sub+'</div></div>'+
-      '<div><div class="b-act">'+bvaDollar(c.actual)+'</div><div class="b-var '+vcls+'">'+bvaVar(varv)+' ('+(pct>=0?'+':'')+pct+'%)</div></div>'+
+      '<div><div class="b-act">'+bvaDollar(c.q2)+'</div><div class="b-var '+vcls+'">'+bvaDelta(d)+' ('+(pct>=0?'+':'')+pct+'%)</div></div>'+
       '<span class="chevron">▼</span></div>'+
       '<div class="bva-body">'+rows+'</div></div>';
   });
   document.getElementById('bvaFoot').innerHTML=
-    '<div class="ff-row"><span>Total Outflows (spend + investment)</span><span>'+bvaDollar(BUDGET.totalOutflows.a)+' <span style="color:var(--gray);font-weight:400">vs '+bvaDollar(BUDGET.totalOutflows.b)+' budget</span></span></div>'+
-    '<div class="ff-row net"><span>Net Cash Flow</span><span class="var-good">'+bvaVar(BUDGET.netCashFlow.a)+' <span style="color:var(--gray);font-weight:400">vs '+bvaVar(BUDGET.netCashFlow.b)+' budget &#183; favorable swing +$58.4K</span></span></div>';
+    '<div class="ff-row"><span>Total Outflows (spend + investment)</span><span>'+bvaDollar(BUDGET.totalOutflows.q2)+' <span style="color:var(--gray);font-weight:400">vs '+bvaDollar(BUDGET.totalOutflows.q1)+' in Q1</span></span></div>'+
+    '<div class="ff-row net"><span>Net Cash Flow</span><span class="var-bad">'+bvaDollar(BUDGET.netCashFlow.q2)+' <span style="color:var(--gray);font-weight:400">vs '+bvaDelta(BUDGET.netCashFlow.q1)+' in Q1 &#183; ~$206K swing as cash deployed</span></span></div>';
 }
 function toggleBva(i){ document.getElementById('bva-'+i).classList.toggle('expanded'); }
 
